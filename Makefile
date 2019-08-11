@@ -6,7 +6,7 @@
 #    By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/17 21:49:09 by fbabin            #+#    #+#              #
-#    Updated: 2019/08/11 22:04:21 by fbabin           ###   ########.fr        #
+#    Updated: 2019/08/11 22:16:11 by fbabin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME			=	server
 CC				=	gcc
 CFLAGS			=	-Wall -Werror -Wextra
 
-_SRV			=	server.c
+_SRV			=	server.c utils.c
 
 SRV_DIR			=	srcs_srv
 
