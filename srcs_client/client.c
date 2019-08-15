@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/11 22:00:18 by fbabin            #+#    #+#             */
-/*   Updated: 2019/08/15 16:51:24 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/08/15 23:40:04 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int		main(int argc, char **argv)
 				ft_putstr("Send failed\n");
 			if( recv(sock, server_reply , 2000 , 0) < 0)
 				ft_putstr("recv failed\n");
-			ft_printf("received %s\n", server_reply);
+			ft_printf("%s\n", server_reply);
 		/*while ((r = read(cs, buff, 1023)) > 0)
 		{
 			if (r > 0)
