@@ -1,27 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_p.h                                             :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/11 22:02:19 by fbabin            #+#    #+#             */
-/*   Updated: 2019/08/14 22:56:35 by fbabin           ###   ########.fr       */
+/*   Created: 2019/08/11 22:13:52 by fbabin            #+#    #+#             */
+/*   Updated: 2019/08/14 22:48:19 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_P_H
-# define FT_P_H
+#include "ft_p.h"
 
-#include <stdlib.h>
-#include <sys/socket.h>
-#include <netdb.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-
-#include "libft.h"
-
-int			ft_atoi(const char *str);
-int			err_msg(int ret, char *msg);
-
-#endif
+int		err_msg(int ret, char *msg)
+{
+	ft_dprintf(2, "%kError%k :: %s\n", LRED, RESET, msg);
+	return (ret);
+}
