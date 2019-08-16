@@ -20,6 +20,7 @@
 # include <unistd.h>
 # include <string.h>
 # include <stdlib.h>
+# include <inttypes.h>
 
 # include "array.h"
 # include "btree.h"

@@ -37,17 +37,16 @@ LIBTF			=	$(LIBFT_DIR)/$(_LIBFT)
 
 INCS_DIR		=	includes
 INCS			=	-I $(INCS_DIR) -I $(LIBFT_DIR)/$(INCS_DIR)
-HEADER			=	$(INCS_DIR)/ft_p.h \
-					$(LIBFT_DIR)/$(INCS_DIR)/libft.h
+HEADER			=	$(INCS_DIR)/ft_p.h $(LIBFT_DIR)/$(INCS_DIR)/libft.h
 
 all: lib $(HEADER) $(NAME) $(NAME2)
 
 $(NAME): $(SRV_ODIR) $(SRV_OBJS) $(SRV_SRCS)
-	@$(CC) $(CFLAGS) $(INCS) -o $(NAME) -L$(LIBFT_DIR) -lft $(SRV_OBJS)
+	@$(CC) $(CFLAGS) $(INCS) -o $(NAME) $(SRV_OBJS) -L$(LIBFT_DIR) -lft
 	@echo "$(NAME) : Done"
 
 $(NAME2): $(CLIENT_ODIR) $(CLIENT_OBJS) $(CLIENT_SRCS)
-	@$(CC) $(CFLAGS) $(INCS) -o $(NAME2) -L$(LIBFT_DIR) -lft $(CLIENT_OBJS)
+	@$(CC) $(CFLAGS) $(INCS) -o $(NAME2) $(CLIENT_OBJS) -L$(LIBFT_DIR) -lft
 	@echo "$(NAME2) : Done"
 
 $(SRV_ODIR):
@@ -57,7 +56,7 @@ $(CLIENT_ODIR):
 	@mkdir -p $(CLIENT_ODIR)
 
 $(SRV_ODIR)/%.o: $(SRV_DIR)/%.c $(HEADER)
-	@$(CC) $(CFLAGS) $(INCS) -c -o $@ $<
+	@$(CC) $(CFLAGS) $(INCS) -c -o $@ $< -L$(LIBFT_DIR) -lft
 
 $(CLIENT_ODIR)/%.o: $(CLIENT_DIR)/%.c $(HEADER)
 	@$(CC) $(CFLAGS) $(INCS) -c -o $@ $<
@@ -78,8 +77,7 @@ fclean: clean
 	@/bin/rm -f $(NAME2)
 	@echo "$(NAME2) fclean : Done"
 
-re:
-	@make fclean
-	@make
+re: fclean all
 
 .PHONY: all clean fclean re
+.SILENT:

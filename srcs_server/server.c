@@ -12,6 +12,7 @@
 
 #include "ft_p.h"
 #include <sys/stat.h>
+
 static void	usage(char *prog_name)
 {
 	ft_printf("Usage: %s <port [1024-65535]>\n", prog_name);
@@ -22,7 +23,7 @@ static int		check_port_range(char *port_str)
 {
 	int		port;
 
-	if (ft_strlenp(port_str) > 5)
+	if (ft_strlen(port_str) > 5)
 		return(err_msg(-1, "invalid port range"));
 	port = ft_atoi(port_str);
 	if (port < 1024 && port > 65535)
@@ -84,18 +85,25 @@ void	get_curr_dir(t_env *env, char *answer_buff)
 		ft_strcpy(answer_buff, ((char*)&path + env->base_len));
 }
 
+void	change_dir(t_env *env, char *answer_buff, char *str)
+{
+	ft_printf("'%s'\n", str);
+	chdir(str + 3);
+	get_curr_dir(env, answer_buff);
+
+}
+
 void	process_cmds(t_env *env, char *answer_buff, char *str)
 {
 	(void)str;
 	//ft_strcpy(answer_buff, "tato");
 	if (ft_strcmp(str, "pwd") == 0)
-	{
 		get_curr_dir(env, answer_buff);
-	}
+	else if (ft_strncmp(str, "cd ", 3) == 0)
+		change_dir(env, answer_buff, str);
 	else
 		ft_strcpy(answer_buff, "Error");
 }
-
 
 int		main(int argc, char **argv)
 {
@@ -137,6 +145,7 @@ int		main(int argc, char **argv)
 				//process_cmds(env, (char*)&answer, "/Users/fbabin/ft_p/ft_p_server_root/toot");
 				process_cmds(env,(char*)&answer, buff);
 				send (cs, &answer, ft_strlen((char*)&answer), 0);
+				ft_strcpy((char*)&answer, "\0");
 			}
 		}
 	}
