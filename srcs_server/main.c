@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/11 22:00:18 by fbabin            #+#    #+#             */
-/*   Updated: 2019/09/12 17:58:51 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/09/12 18:05:26 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,22 +45,6 @@ int		create_server(int port)
 	return (sock);
 }
 
-/*
-void	process_cmds(t_env *env, char *answer_buff, char *str)
-{
-	(void)str;
-	//ft_strcpy(answer_buff, "tato");
-	if (ft_strcmp(str, "pwd") == 0)
-		get_curr_dir(env, answer_buff);
-	else if (ft_strcmp(str, "quit") == 0)
-		ft_strcpy(answer_buff, "quit");
-	else if (ft_strncmp(str, "cd ", 3) == 0)
-		change_dir(env, &answer_buff, str);
-	else
-		ft_strcpy(answer_buff, "Error");
-}
-*/
-
 void	toto(int sock)
 {
 	char					answer[125];
@@ -84,7 +68,6 @@ void	toto(int sock)
 				answer[0] = '1';
 				answer[1] = '\0';
 				send (cs, &answer, ft_strlen((char*)&answer), 0);
-				//ft_strcpy((char*)&answer, "\0");
 			}
 		}
 	}

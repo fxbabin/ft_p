@@ -56,7 +56,7 @@ $(CLIENT_ODIR):
 	@mkdir -p $(CLIENT_ODIR)
 
 $(SRV_ODIR)/%.o: $(SRV_DIR)/%.c $(HEADER)
-	@$(CC) $(CFLAGS) $(INCS) -c -o $@ $<
+	@$(CC) $(CFLAGS) $(INCS) -c -o $@ $< -L$(LIBFT_DIR) -lft
 
 $(CLIENT_ODIR)/%.o: $(CLIENT_DIR)/%.c $(HEADER)
 	@$(CC) $(CFLAGS) $(INCS) -c -o $@ $<
@@ -80,3 +80,4 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re
+.SILENT:
