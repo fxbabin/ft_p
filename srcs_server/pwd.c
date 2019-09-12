@@ -1,35 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/08/15 16:16:51 by fbabin            #+#    #+#             */
-/*   Updated: 2018/04/17 15:39:24 by fbabin           ###   ########.fr       */
+/*   Created: 2019/09/12 17:17:39 by fbabin            #+#    #+#             */
+/*   Updated: 2019/09/12 17:18:09 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#include "ft_p.h"
 
-/*
-** --------------------------------- INCLUDES -------------------------------
-*/
+void	get_curr_dir(t_env *env, char *answer_buff)
+{
+	char	path[PATH_MAX];
+	int		path_len;
 
-# include <unistd.h>
-# include <string.h>
-# include <stdlib.h>
-# include <inttypes.h>
-
-# include "array.h"
-# include "btree.h"
-# include "convert.h"
-# include "io.h"
-# include "lst.h"
-# include "mem.h"
-# include "str.h"
-# include "utils.h"
-# include "ft_printf.h"
-
-#endif
+	//chdir("toot");
+	getcwd(path, PATH_MAX);
+	path_len = ft_strlen((char*)&path);
+	if (path_len <= env->base_len)
+		ft_strcpy(answer_buff, "/");
+	else
+		ft_strcpy(answer_buff, ((char*)&path + env->base_len));
+	//ft_printf("1::'%s'\n", answer_buff);
+}

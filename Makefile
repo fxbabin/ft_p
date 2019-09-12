@@ -6,7 +6,7 @@
 #    By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/17 21:49:09 by fbabin            #+#    #+#              #
-#    Updated: 2019/08/14 22:49:28 by fbabin           ###   ########.fr        #
+#    Updated: 2019/09/12 17:15:05 by fbabin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAME2			=	client
 CC				=	gcc
 CFLAGS			=	-Wall -Werror -Wextra
 
-_SRV			=	server.c utils.c
+_SRV			=	main.c utils.c
 
 _CLIENT			=	client.c utils.c
 
@@ -37,17 +37,16 @@ LIBTF			=	$(LIBFT_DIR)/$(_LIBFT)
 
 INCS_DIR		=	includes
 INCS			=	-I $(INCS_DIR) -I $(LIBFT_DIR)/$(INCS_DIR)
-HEADER			=	$(INCS_DIR)/ft_p.h \
-					$(LIBFT_DIR)/$(INCS_DIR)/libft.h
+HEADER			=	$(INCS_DIR)/ft_p.h $(LIBFT_DIR)/$(INCS_DIR)/libft.h
 
 all: lib $(HEADER) $(NAME) $(NAME2)
 
 $(NAME): $(SRV_ODIR) $(SRV_OBJS) $(SRV_SRCS)
-	@$(CC) $(CFLAGS) $(INCS) -o $(NAME) -L$(LIBFT_DIR) -lft $(SRV_OBJS)
+	@$(CC) $(CFLAGS) $(INCS) -o $(NAME) $(SRV_OBJS) -L$(LIBFT_DIR) -lft
 	@echo "$(NAME) : Done"
 
 $(NAME2): $(CLIENT_ODIR) $(CLIENT_OBJS) $(CLIENT_SRCS)
-	@$(CC) $(CFLAGS) $(INCS) -o $(NAME2) -L$(LIBFT_DIR) -lft $(CLIENT_OBJS)
+	@$(CC) $(CFLAGS) $(INCS) -o $(NAME2) $(CLIENT_OBJS) -L$(LIBFT_DIR) -lft
 	@echo "$(NAME2) : Done"
 
 $(SRV_ODIR):
@@ -78,8 +77,6 @@ fclean: clean
 	@/bin/rm -f $(NAME2)
 	@echo "$(NAME2) fclean : Done"
 
-re:
-	@make fclean
-	@make
+re: fclean all
 
 .PHONY: all clean fclean re

@@ -82,17 +82,11 @@ FT_PRINTF		=	$(addprefix $(FT_PRINTF_DIR)/, $(_FT_PRINTF))
 LIBS			= $(MEM) $(STR) $(ARRAY) $(LST) $(BTREE) $(CONVERT) $(UTILS) $(IO) $(FT_PRINTF)
 OBJS			= $(LIBS:.c=.o)
 
-#COLORS
-_CYAN=\x1b[36m
-_GREEN=\x1b[32m
-_YELLOW=\x1b[33m
-_END=\x1b[0m
-
 all: $(NAME)
 
 $(NAME): $(OBJS)
 		@ar rcs $(NAME) $(OBJS)
-		@echo "$(NAME) : $(_GREEN)Done$(_END)"
+		@echo "$(NAME) : Done"
 
 %.o : %.c
 		@$(CC) $(CFLAGS) -c $< -o $@ -I includes/
@@ -105,8 +99,6 @@ fclean: clean
 		@/bin/rm -f $(NAME)
 		@echo "libft fclean : $(_GREEN)Done$(_END)"
 
-re:
-		@make fclean
-		@make
+re: fclean all
 
 .PHONY: all clean fclean re

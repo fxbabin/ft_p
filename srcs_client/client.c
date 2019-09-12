@@ -6,16 +6,16 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/11 22:00:18 by fbabin            #+#    #+#             */
-/*   Updated: 2019/08/15 23:40:04 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/09/12 17:38:07 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_p.h"
 
-static void	usage(char *prog_name)
+void    server_usage(char *prog_name)
 {
-	ft_printf("Usage: %s <addr> <port [1024-65535]>\n", prog_name);
-	exit(-1);
+	        ft_printf("Usage: %s <port [1024-65535]>\n", prog_name);
+			        exit(-1);
 }
 
 static int		check_port_range(char *port_str)
@@ -57,7 +57,7 @@ int		main(int argc, char **argv)
 	int						sock;
 
 	if (argc != 3)
-		usage(argv[0]);
+		server_usage(argv[0]);
 	if ((port = check_port_range(argv[2])) == -1)
 		return (-1);
 	
@@ -67,7 +67,7 @@ int		main(int argc, char **argv)
 
 	line = NULL;
 	//cs = accept(sock, (struct sockaddr*)&csin, &cslen);
-	ft_printf("ftp>");
+	ft_putstr("ftp>");
 	while ((sget_next_line(0, &line)) > 0)
 	{
 		//write(sock, line, ft_strlen(line));
@@ -75,11 +75,26 @@ int		main(int argc, char **argv)
 			ft_putstr("Not connected.\n");
 		else
 		{
+			if (line[0] == 0)
+			{
+				free(line);
+				ft_putstr("ftp>");
+				continue ;
+			}
+
+			ft_printf("'%s'\n", line);
 			if( send(sock , line , strlen(line) , 0) < 0)
 				ft_putstr("Send failed\n");
 			if( recv(sock, server_reply , 2000 , 0) < 0)
 				ft_putstr("recv failed\n");
-			ft_printf("%s\n", server_reply);
+			if (ft_strcmp(server_reply, "quit") == 0)
+			{
+				free(line);
+				close(sock);
+				return (0);
+			}
+			ft_printf("'%s'\n", server_reply);
+			ft_strclr((char*)&server_reply);
 		/*while ((r = read(cs, buff, 1023)) > 0)
 		{
 			if (r > 0)
@@ -90,7 +105,7 @@ int		main(int argc, char **argv)
 		}*/
 		}
 		free(line);
-		ft_printf("ftp>");
+		ft_putstr("ftp>");
 	}
 	free(line);
 	close(sock);
