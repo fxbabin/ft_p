@@ -6,7 +6,7 @@
 #    By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/17 21:49:09 by fbabin            #+#    #+#              #
-#    Updated: 2019/09/12 17:15:05 by fbabin           ###   ########.fr        #
+#    Updated: 2019/09/13 13:32:46 by fbabin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,7 @@ $(CLIENT_ODIR):
 	@mkdir -p $(CLIENT_ODIR)
 
 $(SRV_ODIR)/%.o: $(SRV_DIR)/%.c $(HEADER)
-	@$(CC) $(CFLAGS) $(INCS) -c -o $@ $< -L$(LIBFT_DIR) -lft
+	@$(CC) $(CFLAGS) $(INCS) -c -o $@ $<
 
 $(CLIENT_ODIR)/%.o: $(CLIENT_DIR)/%.c $(HEADER)
 	@$(CC) $(CFLAGS) $(INCS) -c -o $@ $<
