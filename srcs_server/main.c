@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/11 22:00:18 by fbabin            #+#    #+#             */
-/*   Updated: 2019/09/12 18:05:26 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/09/13 17:40:26 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,33 +45,56 @@ int		create_server(int port)
 	return (sock);
 }
 
-void	toto(int sock)
+void	process_client(int cs)
 {
-	char					answer[125];
-	int						cs;
-	unsigned int			cslen;
-	int						r;
-	char					buff[1024];
-	struct sockaddr_in		csin;
-	
-	while ((cs = accept(sock, (struct sockaddr*)&csin, &cslen)))
+	int		r;
+	char	buff[1024];
+	char	answer[125];
+
+	while ((r = read(cs, buff, 1023)) > 0)
 	{
-		while ((r = read(cs, buff, 1023)) > 0)
+		if (r >= 0)
 		{
-			if (r >= 0)
-			{
-				buff[r] = '\0';
-				ft_printf("received (%d bytes): '%s'\n", r, buff);
-				//process_cmds(env, (char*)&answer, "/Users/fbabin/ft_p/ft_p_server_root/toot");
-				//process_cmds(env,(char*)&answer, buff);
-				//ft_printf("'%s' || %d\n", answer, ft_strlen((char*)&answer));
-				answer[0] = '1';
-				answer[1] = '\0';
-				send (cs, &answer, ft_strlen((char*)&answer), 0);
-			}
+			buff[r] = '\0';
+			ft_printf("received (%d bytes): '%s'\n", r, buff);
+			//process_cmds(env, (char*)&answer, "/Users/fbabin/ft_p/ft_p_server_root/toot");
+			//process_cmds(env,(char*)&answer, buff);
+			//ft_printf("'%s' || %d\n", answer, ft_strlen((char*)&answer));
+			answer[0] = '1';
+			answer[1] = '\0';
+			send (cs, &answer, ft_strlen((char*)&answer), 0);
 		}
 	}
-	close(cs);
+	exit(0);
+}
+
+int		parent_process()
+{
+	return (0);
+}
+
+void	multi_client_handler(int sock)
+{
+	unsigned int			cslen;
+	struct sockaddr_in		csin;
+	int						pid;
+	int						cs;
+
+	while ((cs = accept(sock, (struct sockaddr*)&csin, &cslen)))
+	{
+		pid = fork();
+		if (pid < 0)
+		{
+			ft_printf("error in fork\n");
+			exit(-1);
+		}
+		else if (pid == 0)
+			process_client(cs);
+		else
+			continue ;
+		close(cs);
+		//process_client(cs);
+	}
 }
 
 int		main(int argc, char **argv)
@@ -87,9 +110,7 @@ int		main(int argc, char **argv)
 	if ((port = check_port_range(argv[1])) == -1)
 		return (-1);
 	sock = create_server(port);
-	int pid 
-	
-	toto(sock);
+	multi_client_handler(sock);
 	close(sock);
 	return (0);
 }
