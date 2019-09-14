@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/11 22:00:18 by fbabin            #+#    #+#             */
-/*   Updated: 2019/09/14 18:28:34 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/09/14 18:39:50 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,11 @@ int		main(int argc, char **argv)
 {
 	int			sock;
 	int			port;
-	t_env		*env;
+	t_env		env;
 
+	(void)env;
 	if (argc != 2)
 		server_usage(argv[0]);
-	if (!(env = (t_env*)malloc(sizeof(t_env))))
-		return (err_msg(-1, "env malloc failed"));
 	if ((port = check_port_range(argv[1])) == -1)
 		return (-1);
 	if ((sock = create_server(port)) == -1)
@@ -29,6 +28,5 @@ int		main(int argc, char **argv)
 	if ((multi_client_handler(sock)) == -1)
 		return (err_msg(-1, "client handler failed"));
 	close(sock);
-	ft_printf("%d\n", PATH_MAX);
 	return (0);
 }

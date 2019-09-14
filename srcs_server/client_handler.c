@@ -6,18 +6,30 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/14 18:19:22 by fbabin            #+#    #+#             */
-/*   Updated: 2019/09/14 18:20:05 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/09/14 20:24:06 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_p.h"
 
+/*
+* 120 Service ready in nnn minutes
+* 220 Service ready for new user
+* 421 
+*/
 void	process_client(int cs)
 {
 	int		r;
 	char	buff[1024];
 	char	answer[125];
 
+	//ft_strcpy((char*)answer, "120 Service ready in 0 minutes");
+	//send (cs, &answer, ft_strlen((char*)&answer), 0);
+	//answer[0] = 0;
+	ft_strcpy((char*)answer, "220 Service ready for new user.\n");
+	send (cs, &answer, ft_strlen((char*)&answer), 0);
+	answer[0] = 0;
+	//ft_printf("220 Service ready for new user");
 	while ((r = read(cs, buff, 1023)) > 0)
 	{
 		if (r >= 0)
