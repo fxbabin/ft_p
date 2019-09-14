@@ -5,30 +5,27 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/11 22:00:18 by fbabin            #+#    #+#             */
-/*   Updated: 2019/09/14 18:28:34 by fbabin           ###   ########.fr       */
+/*   Created: 2019/09/14 18:14:51 by fbabin            #+#    #+#             */
+/*   Updated: 2019/09/14 18:16:07 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_p.h"
 
-int		main(int argc, char **argv)
+int		create_server(int port)
 {
-	int			sock;
-	int			port;
-	t_env		*env;
+	int					sock;
+	struct protoent		*proto;
+	struct sockaddr_in	sin;
 
-	if (argc != 2)
-		server_usage(argv[0]);
-	if (!(env = (t_env*)malloc(sizeof(t_env))))
-		return (err_msg(-1, "env malloc failed"));
-	if ((port = check_port_range(argv[1])) == -1)
+	if ((proto = getprotobyname("tcp")) == 0)
 		return (-1);
-	if ((sock = create_server(port)) == -1)
-		return (-1);
-	if ((multi_client_handler(sock)) == -1)
-		return (err_msg(-1, "client handler failed"));
-	close(sock);
-	ft_printf("%d\n", PATH_MAX);
-	return (0);
+	sock = socket(PF_INET, SOCK_STREAM, proto->p_proto);
+	sin.sin_family = AF_INET;
+	sin.sin_port = htons(port);
+	sin.sin_addr.s_addr = htonl(INADDR_ANY);
+	if (bind(sock, (const struct sockaddr *)&sin, sizeof(sin)) == -1)
+		return (err_msg(-1, "bind error"));
+	listen(sock, 42);
+	return (sock);
 }
