@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/11 22:02:19 by fbabin            #+#    #+#             */
-/*   Updated: 2019/09/16 12:20:09 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/09/16 15:32:49 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,11 @@ typedef struct		s_env
 	char			base_len;
 }					t_env;
 
-enum ftp_reply {
-	FTP_SYNT_CMD_OK,
+enum ftp_reply_code {
+	FTP_INIT = -1,
+	FTP_CMD_OK,
+	FTP_SERV_RDY,
+	FTP_USER_LOGGED
 };
 
 int			err_msg(int ret, char *msg);
