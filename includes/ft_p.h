@@ -23,8 +23,8 @@
 # include <netdb.h>
 # include <netinet/in.h>
 # include <arpa/inet.h>
-
-# define  PATH_MAX  1024
+# include <sys/wait.h>
+# include <signal.h>
 
 typedef struct		s_env
 {

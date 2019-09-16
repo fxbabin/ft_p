@@ -15,7 +15,7 @@
 
 # include <stdlib.h>
 
-# define HASH_TSIZE 30
+# define HASH_TSIZE 148
 
 typedef struct			s_hash_list
 {

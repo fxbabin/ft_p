@@ -79,6 +79,8 @@ void			*hash_get_val(t_hash_list *hash_table, void *key,
 	tmp = hash_table;
 	while (tmp)
 	{
+		if (tmp[hash_idx].key == NULL)
+			return (NULL);
 		if (cmp(tmp[hash_idx].key, key) == 0)
 			return (tmp[hash_idx].value);
 		tmp = tmp->next;
