@@ -6,7 +6,7 @@
 #    By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/09 17:49:24 by fbabin            #+#    #+#              #
-#    Updated: 2019/08/14 21:54:55 by fbabin           ###   ########.fr        #
+#    Updated: 2019/09/16 14:25:28 by fbabin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,8 @@ _STR			=	ft_strlen.c ft_strdup.c ft_strcpy.c ft_strncpy.c \
 					ft_charinset.c ft_strjoinclr.c ft_strnjoinclr.c
 
 _ARRAY			=	ft_join.c ft_quicksort.c ft_mergesort.c ft_array_dump.c \
+
+_HASH			=	ft_hash_table.c \
 
 _LST			=	ft_lstnew.c ft_lstdelone.c ft_lstdel.c ft_lstadd.c \
 					ft_lstiter.c ft_lstmap.c ft_lstcreate.c ft_lstpushback.c \
@@ -63,6 +65,7 @@ _FT_PRINTF		=	ft_printf.c padding.c xtract.c handler_wc.c \
 MEM_DIR			=	srcs/mem
 STR_DIR			=	srcs/str
 ARRAY_DIR		=	srcs/array
+HASH_DIR		=	srcs/hash_table
 LST_DIR			=	srcs/lst
 BTREE_DIR		=	srcs/btree
 CONVERT_DIR		=	srcs/convert
@@ -72,6 +75,7 @@ FT_PRINTF_DIR	=	srcs/ft_printf
 MEM				=	$(addprefix $(MEM_DIR)/, $(_MEM))
 STR				=	$(addprefix $(STR_DIR)/, $(_STR))
 ARRAY			=	$(addprefix $(ARRAY_DIR)/, $(_ARRAY))
+HASH			=	$(addprefix $(HASH_DIR)/, $(_HASH))
 LST				=	$(addprefix $(LST_DIR)/, $(_LST))
 BTREE			=	$(addprefix $(BTREE_DIR)/, $(_BTREE))
 CONVERT			=	$(addprefix $(CONVERT_DIR)/, $(_CONVERT))
@@ -79,8 +83,8 @@ UTILS			=	$(addprefix $(UTILS_DIR)/, $(_UTILS))
 IO				=	$(addprefix $(IO_DIR)/, $(_IO))
 FT_PRINTF		=	$(addprefix $(FT_PRINTF_DIR)/, $(_FT_PRINTF))
 
-LIBS			= $(MEM) $(STR) $(ARRAY) $(LST) $(BTREE) $(CONVERT) $(UTILS) $(IO) $(FT_PRINTF)
-OBJS			= $(LIBS:.c=.o)
+LIBS			=	$(MEM) $(STR) $(ARRAY) $(LST) $(BTREE) $(CONVERT) $(UTILS) $(IO) $(HASH) $(FT_PRINTF)
+OBJS			=	$(LIBS:.c=.o)
 
 all: $(NAME)
 

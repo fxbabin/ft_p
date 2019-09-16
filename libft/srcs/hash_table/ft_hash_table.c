@@ -6,28 +6,13 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/15 17:12:46 by fbabin            #+#    #+#             */
-/*   Updated: 2019/09/16 12:44:53 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/09/16 15:09:39 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
+#include "hash_table.h"
 
-#define HASH_TSIZE 30
-
-typedef struct			s_hash_list
-{
-	void				*key;
-	void				*value;
-	struct s_hash_list	*next;
-}						t_hash_list;
-
-enum ftp_reply_code {
-	FTP_INIT = -1,
-	FTP_CMD_OK
-};
-
-int		hash_func(char *str, int hash_tsize)
+static int		hash_func(char *str, int hash_tsize)
 {
 	int		hash;
 	int		i;
@@ -39,7 +24,7 @@ int		hash_func(char *str, int hash_tsize)
 	return (hash % hash_tsize);
 }
 
-int		hash_strcmp(void *s1, void *s2)
+int				hash_strcmp(void *s1, void *s2)
 {
 	char	*tmp1;
 	char	*tmp2;
@@ -56,8 +41,8 @@ int		hash_strcmp(void *s1, void *s2)
 	return (0);
 }
 
-void	hash_add_key_val(t_hash_list *hash_table, void *key, void *val, 
-		int (cmp)(void*, void*))
+void			hash_add_key_val(t_hash_list *hash_table, void *key, void *val,
+									int (cmp)(void*, void*))
 {
 	int				hash_idx;
 	t_hash_list		*tmp;
@@ -84,8 +69,8 @@ void	hash_add_key_val(t_hash_list *hash_table, void *key, void *val,
 	tmp[hash_idx].next = NULL;
 }
 
-void	*hash_get_val(t_hash_list *hash_table, void *key,
-		int (cmp)(void*, void*))
+void			*hash_get_val(t_hash_list *hash_table, void *key,
+								int (cmp)(void*, void*))
 {
 	int				hash_idx;
 	t_hash_list		*tmp;
@@ -99,25 +84,4 @@ void	*hash_get_val(t_hash_list *hash_table, void *key,
 		tmp = tmp->next;
 	}
 	return (NULL);
-}
-
-const char * const ftp_reply_msg[] = {
-	[FTP_CMD_OK] = "200 Command okay."
-};
-
-int		main(void)
-{
-	t_hash_list		hash_table[HASH_TSIZE];
-
-	printf("%s :: %d\n", "STRU", hash_func("STRU", HASH_TSIZE));
-	printf("%s :: %d\n", "ABOR", hash_func("ABOR", HASH_TSIZE));
-	hash_add_key_val((t_hash_list*)(&hash_table), "aa", "sufeheuhkufehkufh", hash_strcmp);
-	hash_add_key_val((t_hash_list*)(&hash_table), "STRU", "tata", hash_strcmp);
-	hash_add_key_val((t_hash_list*)(&hash_table), "ABOR", "tati", hash_strcmp);
-	printf("%s -> %s\n", "aa", hash_get_val((t_hash_list*)(&hash_table), "aa", hash_strcmp));
-	printf("%s -> %s\n", "STRU", hash_get_val((t_hash_list*)(&hash_table), "STRU", hash_strcmp));
-	printf("%s -> %s\n", "ABOR", hash_get_val((t_hash_list*)(&hash_table), "ABOR", hash_strcmp));
-
-	printf("%s\n", ftp_reply_msg[FTP_CMD_OK]);
-	return (0);
 }

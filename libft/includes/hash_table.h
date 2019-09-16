@@ -1,35 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   hash_table.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/08/15 16:16:51 by fbabin            #+#    #+#             */
-/*   Updated: 2019/09/16 14:27:04 by fbabin           ###   ########.fr       */
+/*   Created: 2019/09/16 14:16:27 by fbabin            #+#    #+#             */
+/*   Updated: 2019/09/16 14:28:38 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#ifndef HASH_TABLE_H
+# define HASH_TABLE_H
 
-/*
-** --------------------------------- INCLUDES -------------------------------
-*/
-
-# include <unistd.h>
-# include <string.h>
 # include <stdlib.h>
 
-# include "array.h"
-# include "btree.h"
-# include "convert.h"
-# include "io.h"
-# include "lst.h"
-# include "mem.h"
-# include "str.h"
-# include "utils.h"
-# include "hash_table.h"
-# include "ft_printf.h"
+# define HASH_TSIZE 30
+
+typedef struct			s_hash_list
+{
+	void				*key;
+	void				*value;
+	struct s_hash_list	*next;
+}						t_hash_list;
+
+int						hash_strcmp(void *s1, void *s2);
+void					hash_add_key_val(t_hash_list *hash_table, void *key,
+										void *val, int (cmp)(void*, void*));
+void					*hash_get_val(t_hash_list *hash_table, void *key,
+										int (cmp)(void*, void*));
 
 #endif

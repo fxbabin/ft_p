@@ -6,7 +6,7 @@
 /*   By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/21 17:43:01 by fbabin            #+#    #+#             */
-/*   Updated: 2019/08/14 22:52:06 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/09/16 14:29:53 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <stdarg.h>
 # include <locale.h>
 # include <inttypes.h>
+
 /*
 ** --------------------------------- DEFINES ---------------------------------
 */
@@ -116,7 +117,6 @@ void					ft_padding_a(t_buff *b, t_printf *t, int len);
 /*
 ** ---------------------------- UTILS FUNCTIONS ------------------------------
 */
-
 
 void					bflush(t_buff *b, const char *str, int n);
 int						ft_wcharlen(wchar_t wc);
