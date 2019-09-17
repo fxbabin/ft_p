@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/14 18:14:51 by fbabin            #+#    #+#             */
-/*   Updated: 2019/09/17 13:58:13 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/09/17 18:38:39 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,13 @@ int		init_server_file_system(t_env *env)
 	struct stat		st;
 	char			path[PATH_MAX];
 
-	fd = open("FTP_ROOT", O_RDONLY);
+	fd = open(ROOT_DIR, O_RDONLY);
 	if (fstat(fd, &st) == -1)
-		mkdir("FTP_ROOT", 0755);
+		mkdir(ROOT_DIR, 0755);
 	if (close(fd) == -1)
-		return (err_msg(-1, "close failed on 'FTP_ROOT'"));
-	if (chdir("FTP_ROOT") == -1)
-		return (err_msg(-1, "could not cd to 'FTP_ROOT'"));
+		return (err_msg(-1, "close failed on 'ROOT_DIR'"));
+	if (chdir(ROOT_DIR) == -1)
+		return (err_msg(-1, "could not cd to 'ROOT_DIR'"));
 	env->base_path[0] = '\0';
 	ft_strcpy(env->base_path, getcwd(path, PATH_MAX));
 	env->base_len = ft_strlen(env->base_path);

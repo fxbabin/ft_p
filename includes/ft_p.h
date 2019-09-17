@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/11 22:02:19 by fbabin            #+#    #+#             */
-/*   Updated: 2019/09/17 17:41:11 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/09/17 18:51:38 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@
 # include <sys/wait.h>
 # include <signal.h>
 
-# define HASH_SIZE 148
+# define HASH_SIZE	148
+# define ROOT_DIR	"./ROOT_DIR"
 
 /*
 ** -------------------------------- STRUCTURES ---------------------------------
@@ -34,6 +35,7 @@
 
 typedef struct		s_env
 {
+	t_hash_list		hash[HASH_SIZE];
 	char			base_path[PATH_MAX];
 	char			base_len;
 }					t_env;
@@ -43,6 +45,8 @@ typedef struct		s_key_val
 	void			*key;
 	void			*val;
 }					t_key_val;
+
+extern const char * const g_ftp_reply_msg[];
 
 /*
 ** --------------------------------- CMD_ENUM ----------------------------------
@@ -94,7 +98,12 @@ int			err_msg(int ret, char *msg);
 void		server_usage(char *prog_name);
 
 int			create_server(int port);
-int			multi_client_handler(int sock);
+int			init_server_file_system(t_env *env);
+
+void		init_cmd_hash(t_hash_list *hash);
+int			parse_input_cmd(t_env *env, char *input_cmd);
+
+int			multi_client_handler(t_env *env, int sock);
 int			check_port_range(char *port_str);
 
 /*

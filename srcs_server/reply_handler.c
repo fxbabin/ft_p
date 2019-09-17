@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 15:16:04 by fbabin            #+#    #+#             */
-/*   Updated: 2019/09/17 15:28:39 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/09/17 18:06:01 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ const char * const g_ftp_reply_msg[] = {
 		[FTP_REQ_ACT_OK] = "250 Requested file action okay, completed.\n",
 		[FTP_PATH_CREATED] = "257 PATH created.\n",
 		[FTP_NEED_PASS] = "331 User name okay, need password.\n",
-		[FTP_ED_ACC] = "332 Need account for login.\n",
+		[FTP_NEED_ACC] = "332 Need account for login.\n",
 		[FTP_ACT_PENDING] = "350 Requested file action pending further \
 							 information.\n",
 		[FTP_SERV_NOT_AVAIL] = "Service not available, closing control \
@@ -49,7 +49,6 @@ const char * const g_ftp_reply_msg[] = {
 		[FTP_SYNT_ERR_UNK_CMD] = "502 Command not implemented.\n",
 		[FTP_SYNT_BAD_SEQ] = "503 Bad sequence of commands.\n",
 		[FTP_NOT_LOGGED] = "530 Not logged in.\n",
-		[FTP_NEED_ACC] = "532 Need account for storing files.\n",
 		[FTP_FILE_NOT_AVAIL] = "550 Requested action not taken: File \
 								unavailable.\n",
 		[FTP_UNK_TYPE] = "551 Requested action aborted: page type unknown.\n",

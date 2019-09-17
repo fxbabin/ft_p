@@ -6,15 +6,16 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 13:56:45 by fbabin            #+#    #+#             */
-/*   Updated: 2019/09/17 17:42:18 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/09/17 19:14:50 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fp.h"
+#include "ft_p.h"
 
-void	toto()
+void	*toto()
 {
 	ft_printf("dawd\n");
+	return (NULL);
 }
 
 void	init_cmd_hash(t_hash_list *hash)
@@ -38,18 +39,22 @@ void	init_cmd_hash(t_hash_list *hash)
 		hash_add_key_val(hash, k_val[i].key, k_val[i].val, hash_strcmp);
 }
 
-int		parse_input_cmd(t_hash_list *hash, char *input_cmd)
+int		parse_input_cmd(t_env *env, char *input_cmd)
 {
 	void	(*func)(void);
 	int		cmd_len;
 	char	tmp[6];
 
 	cmd_len = ft_strchrindex(input_cmd, ' ');
+	//ft_printf("%d\n", cmd_len);
 	if (cmd_len > 5 || cmd_len == -1)
 		return (-1);
 	ft_strncpy((char*)(&tmp), input_cmd, cmd_len);
-	if (!(func = hash_get_val(hash, (char*)(&tmp), hash_strcmp)))
+	tmp[cmd_len] = '\0';
+	//ft_printf("%s\n", (char*)(&tmp));
+	if (!(func = hash_get_val((t_hash_list*)&(env->hash), (char*)(&tmp), hash_strcmp)))
 		return (-1);
+	//ft_printf("%s\n", hash_get_val((t_hash_list*)&(env->hash), (char*)(&tmp), hash_strcmp));
 	func();
 	return (0);
 }
