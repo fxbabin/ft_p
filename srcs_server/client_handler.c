@@ -25,6 +25,7 @@ void	process_client(t_env *env, int cs)
 	int				r;
 
 	(void)env;
+	answer = NULL;
 	init_connexion(answer, cs);
 	while ((r = read(cs, buff, 1023)) > 0)
 	{
@@ -32,7 +33,7 @@ void	process_client(t_env *env, int cs)
 		{
 			buff[r] = '\0';
 			ft_printf("[anonymous] :: '%s'\n", buff);
-			parse_input_cmd(env, buff);
+			process_cmd(env, buff);
 			//process_cmds(env, (char*)&answer, "/Users/fbabin/ft_p/ft_p_server_root/toot");
 			//process_cmds(env,(char*)&answer, buff);
 			//ft_printf("'%s' || %d\n", answer, ft_strlen((char*)&answer));

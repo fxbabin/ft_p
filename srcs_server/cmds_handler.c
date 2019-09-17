@@ -39,7 +39,7 @@ void	init_cmd_hash(t_hash_list *hash)
 		hash_add_key_val(hash, k_val[i].key, k_val[i].val, hash_strcmp);
 }
 
-int		parse_input_cmd(t_env *env, char *input_cmd)
+int		process_cmd(t_env *env, char *input_cmd)
 {
 	void	(*func)(void);
 	int		cmd_len;

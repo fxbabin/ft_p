@@ -101,7 +101,7 @@ int			create_server(int port);
 int			init_server_file_system(t_env *env);
 
 void		init_cmd_hash(t_hash_list *hash);
-int			parse_input_cmd(t_env *env, char *input_cmd);
+int			process_cmd(t_env *env, char *input_cmd);
 
 int			multi_client_handler(t_env *env, int sock);
 int			check_port_range(char *port_str);
