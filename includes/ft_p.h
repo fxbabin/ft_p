@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/11 22:02:19 by fbabin            #+#    #+#             */
-/*   Updated: 2019/09/17 18:51:38 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/09/18 18:09:03 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,13 @@
 # include <arpa/inet.h>
 # include <sys/wait.h>
 # include <signal.h>
+# include <time.h>
 
-# define HASH_SIZE	148
-# define ROOT_DIR	"./ROOT_DIR"
+# define HASH_SIZE		148
+# define ROOT_DIR		"./ROOT_DIR"
+# define CMD_MAX_LEN	4
+# define INPUT_MAX_LEN	128
+
 
 /*
 ** -------------------------------- STRUCTURES ---------------------------------
@@ -96,6 +100,7 @@ enum ftp_reply_code {
 
 int			err_msg(int ret, char *msg);
 void		server_usage(char *prog_name);
+int			log_print(char *user, char *cmd);
 
 int			create_server(int port);
 int			init_server_file_system(t_env *env);
