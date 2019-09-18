@@ -6,17 +6,19 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 13:56:45 by fbabin            #+#    #+#             */
-/*   Updated: 2019/09/18 11:59:48 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/09/18 19:30:40 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_p.h"
 
+/*
 void	*toto()
 {
 	ft_printf("dawd\n");
 	return (NULL);
 }
+*/
 
 void	init_cmd_hash(t_hash_list *hash)
 {
@@ -24,16 +26,16 @@ void	init_cmd_hash(t_hash_list *hash)
 
 	i = -1;
 	ft_bzero(hash, (HASH_SIZE) * sizeof(t_hash_list));
-	t_key_val k_val[] = {{"USER", toto}, {"PASS", "pass"}, {"ACCT", "acct"},
-						 {"CWD", "cwd"},   {"CDUP", "cdup"}, {"REIN", "rein"},
-						 {"QUIT", "quit"}, {"PORT", "port"}, {"PASV", "pasv"},
-						 {"TYPE", "type"}, {"MODE", "mode"}, {"RETR", "retr"},
-						 {"STOR", "stor"}, {"STOU", "stou"}, {"APPE", "appe"},
-						 {"REST", "rest"}, {"RNFR", "rnfr"}, {"RNTO", "rnto"},
-						 {"ABOR", "abor"}, {"DELE", "dele"}, {"RMD", "rmd"},
-						 {"MKD", "mkd"},   {"PWD", "pwd"},   {"LIST", "list"},
-						 {"NLIST", "nlist"}, {"SYST", "syst"}, {"STAT", "stat"},
-						 {"HELP", "help"}, {"NOOP", "noop"}
+	t_key_val k_val[] = {{"USER", NULL}, {"PASS", NULL}, {"ACCT", NULL},
+						 {"CWD", NULL},   {"CDUP", NULL}, {"REIN", NULL},
+						 {"QUIT", NULL}, {"PORT", NULL}, {"PASV", NULL},
+						 {"TYPE", NULL}, {"MODE", NULL}, {"RETR", NULL},
+						 {"STOR", NULL}, {"STOU", NULL}, {"APPE", NULL},
+						 {"REST", NULL}, {"RNFR", NULL}, {"RNTO", NULL},
+						 {"ABOR", NULL}, {"DELE", NULL}, {"RMD", NULL},
+						 {"MKD", NULL},   {"PWD", NULL},   {"LIST", NULL},
+						 {"NLIST", NULL}, {"SYST", NULL}, {"STAT", NULL},
+						 {"HELP", NULL}, {"NOOP", NULL}
 	};
 	while (++i < (int)(sizeof(k_val) / sizeof(*k_val)))
 		hash_add_key_val(hash, k_val[i].key, k_val[i].val, hash_strcmp);
