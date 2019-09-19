@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/11 22:02:19 by fbabin            #+#    #+#             */
-/*   Updated: 2019/09/18 18:09:03 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/09/19 19:55:32 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@
 # define ROOT_DIR		"./ROOT_DIR"
 # define CMD_MAX_LEN	4
 # define INPUT_MAX_LEN	128
-
+# define MAX_USERS		128
+# define USER_NAME_LEN	6
 
 /*
 ** -------------------------------- STRUCTURES ---------------------------------
@@ -39,9 +40,12 @@
 
 typedef struct		s_env
 {
+	char			users[MAX_USERS + 1];
 	t_hash_list		hash[HASH_SIZE];
 	char			base_path[PATH_MAX];
 	char			base_len;
+	int				user_id;
+	char			user_name[USER_NAME_LEN + 1];
 }					t_env;
 
 typedef struct		s_key_val
@@ -99,17 +103,21 @@ enum ftp_reply_code {
 */
 
 int			err_msg(int ret, char *msg);
+int			err_answer(int ret, const char **answer, int idx);
+void		ft_strtoupper(char *cmd);
 void		server_usage(char *prog_name);
-int			log_print(char *user, char *cmd);
+int			log_print(char *user, int user_id, char *cmd);
 
 int			create_server(int port);
 int			init_server_file_system(t_env *env);
 
 void		init_cmd_hash(t_hash_list *hash);
-int			process_cmd(t_env *env, char *input_cmd);
+int			process_cmds(t_env *env, const char **answer, char *input_cmd);
 
 int			multi_client_handler(t_env *env, int sock);
 int			check_port_range(char *port_str);
+
+int			user(t_env *env, const char **answer, char *param);
 
 /*
 ** ---------------------------------- COMMANDS ---------------------------------

@@ -6,7 +6,7 @@
 #    By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/17 21:49:09 by fbabin            #+#    #+#              #
-#    Updated: 2019/09/17 18:49:49 by fbabin           ###   ########.fr        #
+#    Updated: 2019/09/19 19:53:05 by fbabin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,8 @@ NAME2			=	client
 CC				=	gcc
 CFLAGS			=	-Wall -Werror -Wextra
 
-_SRV			=	main.c server.c client_handler.c reply_handler.c cmds_handler.c utils.c
+_SRV			=	main.c server.c client_handler.c reply_handler.c \
+					cmds_handler.c utils.c user.c
 
 _CLIENT			=	client.c utils.c
 
