@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 13:56:45 by fbabin            #+#    #+#             */
-/*   Updated: 2019/09/19 20:14:14 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/09/19 22:26:24 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,12 @@ int				process_cmds(t_env *env, const char **answer, char *input_cmd)
 	tmp[cmd_len] = '\0';
 	ft_strtoupper(tmp);
 	param += (param) ? 1 : 0;
-	ft_strncpy(param, param, ft_strlen(param) - 2);
-	ft_printf("'%s'\n", param );
+	//ft_strncpy(param, param, ft_strlen(param) - 2);
+	//if (param)
+	//	param[ft_strlen(param) - 2] = '\0';
+	//ft_printf("'%s'\n", param );
+	//*answer = g_ftp_reply_msg[FTP_LOGGED_IN];
+	//(void)env;
 	run_func(env, answer, (char*)(&tmp), param);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/14 18:19:22 by fbabin            #+#    #+#             */
-/*   Updated: 2019/09/19 19:32:10 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/09/19 22:28:01 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	set_userid(t_env *env)
 		{
 			env->users[i] = 1;
 			env->user_id = i;
-			ft_strcpy(env->user_name, "ano");
+			ft_strcpy(env->user_name, "anonym");
 			break ;
 		}
 	}
@@ -60,6 +60,8 @@ void	process_client(t_env *env, int cs)
 		{
 			buff[r] = '\0';
 			log_print(env->user_name, env->user_id, buff);
+			while (ft_isspace(buff[--r]))
+				buff[r] = '\0';
 			//ft_putstr("\n");
 			process_cmds(env, &answer, buff);
 			//process_cmds(env, (char*)&answer, "/Users/fbabin/ft_p/ft_p_server_root/toot");

@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/11 22:02:19 by fbabin            #+#    #+#             */
-/*   Updated: 2019/09/19 19:55:32 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/09/20 11:23:34 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,11 @@ typedef struct		s_env
 {
 	char			users[MAX_USERS + 1];
 	t_hash_list		hash[HASH_SIZE];
-	char			base_path[PATH_MAX];
-	char			base_len;
+	char			root_path[PATH_MAX];
 	int				user_id;
 	char			user_name[USER_NAME_LEN + 1];
+	char			user_path[PATH_MAX];
+	int				user_path_len;
 }					t_env;
 
 typedef struct		s_key_val

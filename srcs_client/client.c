@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/11 22:00:18 by fbabin            #+#    #+#             */
-/*   Updated: 2019/09/14 18:30:01 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/09/19 22:05:13 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,10 @@ int		main(int argc, char **argv)
 				continue ;
 			}
 
-			ft_printf("'%s'\n", line);
-			if( send(sock , line , strlen(line) , 0) < 0)
+			//ft_printf("'%s'\n", line);
+			ft_strcpy((char*)(&server_reply), line);
+			ft_strcat((char*)(&server_reply), "\n");
+			if( send(sock , (char*)(&server_reply), strlen((char*)(&server_reply)) , 0) < 0)
 				ft_putstr("Send failed\n");
 			if( recv(sock, server_reply , 2000 , 0) < 0)
 				ft_putstr("recv failed\n");
@@ -81,7 +83,7 @@ int		main(int argc, char **argv)
 				close(sock);
 				return (0);
 			}
-			ft_printf("'%s'\n", server_reply);
+			//ft_printf("'%s'\n", server_reply);
 			ft_strclr((char*)&server_reply);
 		/*while ((r = read(cs, buff, 1023)) > 0)
 		{
