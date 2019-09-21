@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 15:16:04 by fbabin            #+#    #+#             */
-/*   Updated: 2019/09/17 18:06:01 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/09/21 17:40:02 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,16 @@ const char * const g_ftp_reply_msg[] = {
 		[FTP_CMD_UNK] = "202 Command not implemented, superfluous at this \
 						 site.\n",
 		[FTP_SYST_STAT] = "211 System status, or system help reply.\n",
-		[FTP_DIR_STAT] = "212 Directory status.\n", 
-		[FTP_FILE_STAT] = "213 File status.\n", 
-		[FTP_HELP_MSG] = "214 Help message.\n", 
-		[FTP_SYST_NAME] = "215 system name.\n", 
-		[FTP_SERV_RDY] = "220 Service ready for new user.\n", 
-		[FTP_LOGGED_OUT] = "221 Service closing control connection.\n", 
+		[FTP_DIR_STAT] = "212 Directory status.\n",
+		[FTP_FILE_STAT] = "213 File status.\n",
+		[FTP_HELP_MSG] = "214 Help message.\n",
+		[FTP_SYST_NAME] = "215 system name.\n",
+		[FTP_SERV_RDY] = "220 Service ready for new user.\n",
+		[FTP_LOGGED_OUT] = "221 Service closing control connection.\n",
 		[FTP_DATA_CON_OPEN] = "225 Data connection open; no transfer in \
-							   progress.\n", 
-		[FTP_DATA_CON_CLOSE] = "226 Closing data connection.\n", 
-		[FTP_PASV_MODE] = "227 Entering Passive Mode (h1,h2,h3,h4,p1,p2).\n", 
+							   progress.\n",
+		[FTP_DATA_CON_CLOSE] = "226 Closing data connection.\n",
+		[FTP_PASV_MODE] = "227 Entering Passive Mode (h1,h2,h3,h4,p1,p2).\n",
 		[FTP_LOGGED_IN] = "230 User logged in, proceed.\n",
 		[FTP_REQ_ACT_OK] = "250 Requested file action okay, completed.\n",
 		[FTP_PATH_CREATED] = "257 PATH created.\n",

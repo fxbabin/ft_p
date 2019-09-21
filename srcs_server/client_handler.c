@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/14 18:19:22 by fbabin            #+#    #+#             */
-/*   Updated: 2019/09/19 22:28:01 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/09/21 18:47:56 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,18 @@ void	process_client(t_env *env, int cs)
 			//process_cmds(env,(char*)&answer, buff);
 			//ft_printf("'%s' || %d\n", answer, ft_strlen((char*)&answer));
 			//answer = g_ftp_reply_msg[FTP_LOGGED_IN];
-			log_print_user_msg(env->user_name, env->user_id, (char*)answer);
 			//ft_dprintf()
-			//send (cs, answer, ft_strlen((char*)answer), 0);
-			// write (cs, answer, ft_strlen(answer));
+			if (env->buff[0])
+			{
+				log_print_user_msg(env->user_name, env->user_id, env->buff);
+				send (cs, env->buff, ft_strlen(env->buff), 0);
+			}
+			else
+			{
+				log_print_user_msg(env->user_name, env->user_id, (char*)answer);
+				send (cs, answer, ft_strlen((char*)answer), 0);
+			}
+			//write (cs, answer, ft_strlen(answer));
 		}
 	}
 	exit(0);
@@ -91,6 +99,7 @@ int		multi_client_handler(t_env *env, int sock)
 	int						cs;
 
 	ft_bzero((char*)&(env->users), MAX_USERS);
+	env->user_id = -1;
 	log_print();
 	ft_printf("INFO : Server ready !\n");
 	while ((cs = accept(sock, (struct sockaddr*)&csin, &cslen)))

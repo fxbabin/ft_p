@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/14 18:14:51 by fbabin            #+#    #+#             */
-/*   Updated: 2019/09/20 11:38:09 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/09/21 19:11:49 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int		init_server_file_system(t_env *env)
 	if (chdir(ROOT_DIR) == -1)
 		return (err_msg(-1, "could not cd to 'ROOT_DIR'"));
 	env->root_path[0] = '\0';
+	env->is_logged = 0;
 	ft_strcpy(env->root_path, getcwd(path, PATH_MAX));
 	return (0);
 }
