@@ -26,6 +26,8 @@
 # include <sys/wait.h>
 # include <signal.h>
 # include <time.h>
+# include <dirent.h>
+# include <errno.h>
 
 # define HASH_SIZE		148
 # define ROOT_DIR		"./ROOT_DIR"
@@ -107,7 +109,8 @@ int			err_msg(int ret, char *msg);
 int			err_answer(int ret, const char **answer, int idx);
 void		ft_strtoupper(char *cmd);
 void		server_usage(char *prog_name);
-int			log_print(char *user, int user_id, char *cmd);
+int			log_print(void);
+int			log_print_user_msg(char *user, int user_id, char *cmd);
 
 int			create_server(int port);
 int			init_server_file_system(t_env *env);

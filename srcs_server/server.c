@@ -18,6 +18,8 @@ int		create_server(int port)
 	struct protoent		*proto;
 	struct sockaddr_in	sin;
 
+	log_print();
+	ft_printf("INFO : Creating server ...\n");
 	if ((proto = getprotobyname("tcp")) == 0)
 		return (-1);
 	sock = socket(PF_INET, SOCK_STREAM, proto->p_proto);
@@ -32,13 +34,23 @@ int		create_server(int port)
 
 int		init_server_file_system(t_env *env)
 {
-	int				fd;
-	struct stat		st;
-	char			path[PATH_MAX];
+	DIR		*dir;
+	char	path[PATH_MAX];
 
-	fd = open(ROOT_DIR, O_RDONLY);
-	if (fstat(fd, &st) == -1)
+	log_print();
+	ft_printf("INFO : Initialing server file system ...\n");
+	log_print();
+	if ((dir = opendir(ROOT_DIR)))
+	{
+		ft_printf("INFO : \"%s\" directory already exists.\n", ROOT_DIR);
+		if ((closedir(dir)) == -1)
+			return (err_msg(-1, "could not close ROOT_DIR"));
+	}
+	else if (errno == ENOENT)
+	{
 		mkdir(ROOT_DIR, 0755);
+		ft_printf("INFO : \"%s\" directory created.\n", ROOT_DIR);
+	}
 	if (chdir(ROOT_DIR) == -1)
 		return (err_msg(-1, "could not cd to 'ROOT_DIR'"));
 	env->root_path[0] = '\0';

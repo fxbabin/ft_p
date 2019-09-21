@@ -23,3 +23,6 @@ int		mkd(t_env *env, const char **answer, char *param)
 	*answer = g_ftp_reply_msg[FTP_LOGGED_IN];
 	return (0);
 }
+
+//521-"/usr/dm/pathname" directory already exists;
+//257 "/usr/dm/pathname" directory created

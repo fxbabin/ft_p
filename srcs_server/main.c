@@ -36,7 +36,8 @@ int		main(int argc, char **argv)
 		return (-1);
 	if ((sock = create_server(port)) == -1)
 		return (-1);
-	init_server_file_system(&env);
+	if ((init_server_file_system(&env)) == -1)
+		return (-1);
 	init_cmd_hash((t_hash_list*)&(env.hash));
 	if ((multi_client_handler(&env, sock)) == -1)
 		return (err_msg(-1, "client handler failed"));

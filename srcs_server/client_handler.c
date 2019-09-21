@@ -59,7 +59,7 @@ void	process_client(t_env *env, int cs)
 		if (r >= 0)
 		{
 			buff[r] = '\0';
-			log_print(env->user_name, env->user_id, buff);
+			log_print_user_msg(env->user_name, env->user_id, buff);
 			while (ft_isspace(buff[--r]))
 				buff[r] = '\0';
 			//ft_putstr("\n");
@@ -68,8 +68,9 @@ void	process_client(t_env *env, int cs)
 			//process_cmds(env,(char*)&answer, buff);
 			//ft_printf("'%s' || %d\n", answer, ft_strlen((char*)&answer));
 			//answer = g_ftp_reply_msg[FTP_LOGGED_IN];
-			log_print(env->user_name, env->user_id, (char*)answer);
-			send (cs, answer, ft_strlen((char*)answer), 0);
+			log_print_user_msg(env->user_name, env->user_id, (char*)answer);
+			//ft_dprintf()
+			//send (cs, answer, ft_strlen((char*)answer), 0);
 			// write (cs, answer, ft_strlen(answer));
 		}
 	}
@@ -90,7 +91,8 @@ int		multi_client_handler(t_env *env, int sock)
 	int						cs;
 
 	ft_bzero((char*)&(env->users), MAX_USERS);
-	//init_cmd_hash((t_hash_list*)&(env->hash));
+	log_print();
+	ft_printf("INFO : Server ready !\n");
 	while ((cs = accept(sock, (struct sockaddr*)&csin, &cslen)))
 	{
 		set_userid(env);

@@ -39,7 +39,7 @@ int		err_answer(int ret, const char **answer, int idx)
 	return (ret);
 }
 
-int		log_print(char *user, int user_id, char *cmd)
+int		log_print(void)
 {
 	time_t		rawtime;
 	struct tm	*ptm;	
@@ -48,8 +48,15 @@ int		log_print(char *user, int user_id, char *cmd)
 		return (err_msg(-1, "time command failed"));
 	if ((ptm = localtime(&rawtime)) == NULL)
 		return (err_msg(-1, "localtime command failed"));
-	ft_printf("[%04d/%02d/%02d %02d:%02d:%02d] :: %-*s(%d) : %s", ptm->tm_year + 1900,
-		ptm->tm_mon + 1, ptm->tm_mday, ptm->tm_hour, ptm->tm_min, ptm->tm_sec,
-		USER_NAME_LEN, user, user_id, cmd);
+	ft_printf("[%04d/%02d/%02d %02d:%02d:%02d] :: ", ptm->tm_year + 1900,
+		ptm->tm_mon + 1, ptm->tm_mday, ptm->tm_hour, ptm->tm_min, ptm->tm_sec);
+	return (0);
+}
+
+int		log_print_user_msg(char *user, int user_id, char *cmd)
+{
+	if ((log_print()) == -1)
+		return (-1);
+	ft_printf("%-*s(%d) : %s", USER_NAME_LEN, user, user_id, cmd);
 	return (0);
 }
