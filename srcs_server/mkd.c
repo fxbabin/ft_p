@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/20 12:13:44 by fbabin            #+#    #+#             */
-/*   Updated: 2019/09/21 19:08:42 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/09/22 16:44:04 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int		mkd(t_env *env, const char **answer, char *param)
 	if ((dir = opendir(param)))
 	{
 		set_buff((char*)&(env->buff), "521 \"", param, "\" directory already exists.\n");
-		//521-"/usr/dm/pathname" directory already exists;
 		if ((closedir(dir)) == -1)
 			return (err_msg(-1, "could not close ROOT_DIR"));
 	}

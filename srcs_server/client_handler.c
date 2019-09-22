@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/14 18:19:22 by fbabin            #+#    #+#             */
-/*   Updated: 2019/09/21 18:47:56 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/09/22 17:49:43 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	process_client(t_env *env, int cs)
 	exit(0);
 }
 
-void	signal_handler(int signum)
+static void	signal_handler(int signum)
 {
 	wait(NULL);
 	ft_printf("signum: %d\n", signum);

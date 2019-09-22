@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/11 22:00:18 by fbabin            #+#    #+#             */
-/*   Updated: 2019/09/19 12:41:20 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/09/22 17:43:40 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,9 @@ int		main(int argc, char **argv)
 	init_cmd_hash((t_hash_list*)&(env.hash));
 	if ((multi_client_handler(&env, sock)) == -1)
 		return (err_msg(-1, "client handler failed"));
+	//execl("/bin/ls", "ls", "-l", "ee", NULL);
+	//execl("/bin/rm", "rm", "-rf", "ee", NULL);
+	
 	close(sock);
 	return (0);
 }
