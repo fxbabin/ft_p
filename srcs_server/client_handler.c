@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/14 18:19:22 by fbabin            #+#    #+#             */
-/*   Updated: 2019/09/22 17:49:43 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/09/25 19:57:14 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,46 +39,51 @@ void	set_userid(t_env *env)
 	}
 }
 
-void	init_connexion(const char *answer, int cs)
+void	init_connexion(char *answer, int cs)
 {
-	answer = g_ftp_reply_msg[FTP_SERV_RDY];
+	ft_strcpy(answer, g_ftp_reply_msg[FTP_SERV_RDY]);
 	send (cs, answer, ft_strlen(answer), 0);
+}
+
+void	split_buff(char *buff)
+{
+	char	tmp[1024];
+	int		i;
+
+	i = -1
+	while (buff[++i])
+	{
+		
+	}
 }
 
 void	process_client(t_env *env, int cs)
 {
-	const char		*answer;
-	char			buff[1024];
-	int				r;
+	char	buff[1024];
+	int		r;
 
-	(void)env;
-	answer = NULL;
-	init_connexion(answer, cs);
+	init_connexion(env->answer, cs);
 	while ((r = read(cs, buff, 1023)) > 0)
 	{
 		if (r >= 0)
 		{
 			buff[r] = '\0';
+			env->answer[0] = '\0';
 			log_print_user_msg(env->user_name, env->user_id, buff);
-			while (ft_isspace(buff[--r]))
-				buff[r] = '\0';
+			//while (ft_isspace(buff[--r]))
+			//	buff[r] = '\0';
+			
 			//ft_putstr("\n");
-			process_cmds(env, &answer, buff);
+			if (process_cmds(env, buff) == -1)
+				ft_printf("Error\n");
 			//process_cmds(env, (char*)&answer, "/Users/fbabin/ft_p/ft_p_server_root/toot");
-			//process_cmds(env,(char*)&answer, buff);
+			//process_cmds(env, buff);
 			//ft_printf("'%s' || %d\n", answer, ft_strlen((char*)&answer));
 			//answer = g_ftp_reply_msg[FTP_LOGGED_IN];
 			//ft_dprintf()
-			if (env->buff[0])
-			{
-				log_print_user_msg(env->user_name, env->user_id, env->buff);
-				send (cs, env->buff, ft_strlen(env->buff), 0);
-			}
-			else
-			{
-				log_print_user_msg(env->user_name, env->user_id, (char*)answer);
-				send (cs, answer, ft_strlen((char*)answer), 0);
-			}
+			ft_strcpy(env->answer, g_ftp_reply_msg[FTP_CMD_OK]);
+			log_print_user_msg(env->user_name, env->user_id, env->answer);
+			send (cs, env->answer, ft_strlen(env->answer), 0);
 			//write (cs, answer, ft_strlen(answer));
 		}
 	}

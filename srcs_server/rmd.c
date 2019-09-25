@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/21 21:45:19 by fbabin            #+#    #+#             */
-/*   Updated: 2019/09/22 19:00:24 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/09/25 14:01:02 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ static void	signal_handler(int signum)
 
 int		rmd(t_env *env, const char **answer, char *param)
 {
+	//char	buff[PATH_MAX];
 	DIR		*dir;
 	int		pid;
 
 	(void)env;
 	if (!param)
 		return (err_answer(-1, answer, FTP_SYNT_BAD_SEQ));
-	if (ft_strchr(param, '.'))
-		return (err_answer(-1, answer, FTP_SYNT_ERR_PAR));
+	//ft_abspath(env->)
 	if ((dir = opendir(param)))
 	{
 		pid = fork();

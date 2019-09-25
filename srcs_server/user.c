@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 15:50:25 by fbabin            #+#    #+#             */
-/*   Updated: 2019/09/21 19:13:35 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/09/25 14:03:05 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		user(t_env *env, const char **answer, char *param)
 		return (err_answer(-1, answer, FTP_FILE_NOT_AVAIL));
 	path[0] = '\0';
 	ft_strcpy((char*)(&tmp), "./");
-	ft_strcat((char*)(&tmp), param);
+	ft_strncat((char*)(&tmp), param, USER_NAME_LEN);
 	if ((dir = opendir((char*)(&tmp))))
 	{
 		if ((closedir(dir)) == -1)

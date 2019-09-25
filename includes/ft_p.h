@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/11 22:02:19 by fbabin            #+#    #+#             */
-/*   Updated: 2019/09/22 16:24:20 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/09/25 19:30:56 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@
 
 typedef struct		s_env
 {
-	char			buff[PATH_MAX + INPUT_MAX_LEN];
+	char			answer[PATH_MAX + INPUT_MAX_LEN];
 	char			users[MAX_USERS + 1];
 	t_hash_list		hash[HASH_SIZE];
 	char			root_path[PATH_MAX];
@@ -123,6 +123,12 @@ int			process_cmds(t_env *env, const char **answer, char *input_cmd);
 int			multi_client_handler(t_env *env, int sock);
 int			check_port_range(char *port_str);
 
+
+int			is_dir(char *path);
+int			is_file(char *path);
+int			is_pathvalid(char *root, char *path);
+void		get_rootpath(char *root, char *path, char *buff);
+int			ft_abspath(char *root, char *path, char *buff);
 
 /*
 ** ---------------------------------- COMMANDS ---------------------------------
