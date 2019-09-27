@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/11 22:13:52 by fbabin            #+#    #+#             */
-/*   Updated: 2019/09/25 18:28:27 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/09/27 15:38:59 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,16 @@ void	ft_strtoupper(char *cmd)
 		cmd[i] = ft_toupper(cmd[i]);
 }
 
-int		err_answer(int ret, const char **answer, int idx)
+int		err_answer(int ret, char *answer, int idx)
 {
-	*answer = g_ftp_reply_msg[idx];
+	ft_strcpy(answer, g_ftp_reply_msg[idx]);
 	return (ret);
 }
 
 int		log_print(void)
 {
 	time_t		rawtime;
-	struct tm	*ptm;	
+	struct tm	*ptm;
 
 	if ((rawtime = time(NULL)) == -1)
 		return (err_msg(-1, "time command failed"));
@@ -59,4 +59,14 @@ int		log_print_user_msg(char *user, int user_id, char *cmd)
 		return (-1);
 	ft_printf("%-*s(%d) : %s", USER_NAME_LEN, user, user_id, cmd);
 	return (0);
+}
+
+void	free_split(char **split)
+{
+	int		i;
+
+	i = -1;
+	while (split[++i])
+		free(split[i]);
+	free(split);
 }

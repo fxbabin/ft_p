@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/11 22:02:19 by fbabin            #+#    #+#             */
-/*   Updated: 2019/09/25 19:30:56 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/09/27 18:16:01 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ enum ftp_reply_code {
 */
 
 int			err_msg(int ret, char *msg);
-int			err_answer(int ret, const char **answer, int idx);
+int			err_answer(int ret, char *answer, int idx);
 void		ft_strtoupper(char *cmd);
 void		server_usage(char *prog_name);
 int			log_print(void);
@@ -118,7 +118,7 @@ int			create_server(int port);
 int			init_server_file_system(t_env *env);
 
 void		init_cmd_hash(t_hash_list *hash);
-int			process_cmds(t_env *env, const char **answer, char *input_cmd);
+int			process_cmds(t_env *env, char *input_cmd);
 
 int			multi_client_handler(t_env *env, int sock);
 int			check_port_range(char *port_str);
@@ -130,14 +130,20 @@ int			is_pathvalid(char *root, char *path);
 void		get_rootpath(char *root, char *path, char *buff);
 int			ft_abspath(char *root, char *path, char *buff);
 
+void		free_split(char **split);
+
 /*
 ** ---------------------------------- COMMANDS ---------------------------------
 */
 
 
-int			user(t_env *env, const char **answer, char *param);
-int			mkd(t_env *env, const char **answer, char *param);
-int			noop(t_env *env, const char **answer, char *param);
-int			rmd(t_env *env, const char **answer, char *param);
+int			user(t_env *env, char *param);
+int			quit(t_env *env, char *param);
+int			syst(t_env *env, char *param);
+
+
+int			mkd(t_env *env, char *param);
+int			noop(t_env *env, char *param);
+int			rmd(t_env *env, char *param);
 
 #endif
