@@ -11,47 +11,49 @@
 /* ************************************************************************** */
 
 #include "ft_p.h"
-
+/*
 void	child_rmd(char *param)
 {
 	execl("/bin/rm", "rm", "-rf", param, NULL);
 	exit (0);
-}
-
+}*/
+/*
 static void	signal_handler(int signum)
 {
 	(void)signum;
 	wait(NULL);
-}
+}*/
 
-int		rmd(t_env *env, const char **answer, char *param)
+int		rmd(t_env *env, char *param)
 {
-	//char	buff[PATH_MAX];
+	//char	abspath[PATH_MAX];
 	DIR		*dir;
-	int		pid;
-
+	//int		pid;
+	
+	ft_printf("2\n");
 	(void)env;
 	if (!param)
-		return (err_answer(-1, answer, FTP_SYNT_BAD_SEQ));
-	//ft_abspath(env->)
+		return (err_answer(-1, env->answer, FTP_SYNT_BAD_SEQ));
+	/*if (ft_abspath(env->user_path, param, (char*)(&abspath)) == -1)
+		return (err_answer(-1, env->answer, FTP_SYNT_BAD_SEQ));
+	if (!is_pathvalid(env->user_path, (char*)(&abspath)))
+		return (err_answer(-1, env->answer, FTP_FILE_NOT_AVAIL));
+	*/
 	if ((dir = opendir(param)))
 	{
-		pid = fork();
+		ft_printf("3\n");
+		closedir(dir);
+		/*pid = fork();
 		if (pid < 0)
 			return (err_msg(-1, "client fork failed"));
 		else if (pid == 0)
 			child_rmd(param);
 		else
 			signal(SIGCHLD, signal_handler);
-		//ft_printf("here\n");
-		//execl("/bin/rm", "rm", "-rf", param, NULL);
+		*/
 	}
 	else if (errno == ENOENT)
-	{
-		//ft_printf("3\n");
-		return (err_answer(-1, answer, FTP_FILE_NOT_AVAIL));
-		//return (err_msg(-1, "could not close ROOT_DIR"));
-	}
-	*answer = g_ftp_reply_msg[FTP_REQ_ACT_OK];
+		return (err_answer(-1, env->answer, FTP_FILE_NOT_AVAIL));
+	ft_strcpy(env->answer, g_ftp_reply_msg[FTP_REQ_ACT_OK]);
 	return (0);
 }

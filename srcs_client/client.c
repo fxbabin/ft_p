@@ -57,7 +57,9 @@ int		main(int argc, char **argv)
 	line = NULL;
 	//cs = accept(sock, (struct sockaddr*)&csin, &cslen);
 
-	recv(sock, server_reply , 2000 , 0);
+	if((r = recv(sock, server_reply , 2000 , 0)) < 0)
+		ft_putstr("recv failed\n");
+	server_reply[r] = '\0';
 	ft_printf("%s", server_reply);
 	ft_putstr("ftp>");
 	while ((sget_next_line(0, &line)) > 0)

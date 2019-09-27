@@ -12,10 +12,9 @@
 
 #include "ft_p.h"
 
-int		noop(t_env *env, const char **answer, char *param)
+int		noop(t_env *env, char *param)
 {
-	(void)env;
 	(void)param;
-	*answer = g_ftp_reply_msg[FTP_CMD_OK];
+	ft_strcpy(env->answer, g_ftp_reply_msg[FTP_CMD_OK]);
 	return (0);
 }

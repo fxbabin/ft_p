@@ -24,8 +24,8 @@ void			init_cmd_hash(t_hash_list *hash)
 						 {"TYPE", NULL}, {"MODE", NULL}, {"RETR", NULL},
 						 {"STOR", NULL}, {"STOU", NULL}, {"APPE", NULL},
 						 {"REST", NULL}, {"RNFR", NULL}, {"RNTO", NULL},
-						 {"ABOR", NULL}, {"DELE", NULL}, {"RMD", NULL},
-						 {"MKD", NULL},   {"PWD", NULL},   {"LIST", NULL},
+						 {"ABOR", NULL}, {"DELE", NULL}, {"RMD", rmd},
+						 {"MKD", mkd},   {"PWD", NULL},   {"LIST", NULL},
 						 {"NLIST", NULL}, {"SYST", syst}, {"STAT", NULL},
 						 {"HELP", NULL}, {"NOOP", NULL}
 	};
@@ -47,9 +47,9 @@ static int		run_func(t_env *env, char *cmd, char *param)
 
 static int		check_cmds(t_env *env, char *cmd, char *param)
 {
-	int		i;
+	//int		i;
 
-	i = -1;
+	//i = -1;
 	if (ft_strlen(cmd) > CMD_MAX_LEN)
 		return (err_answer(-1, env->answer, FTP_SYNT_ERR));
 	/*while (param[++i])
@@ -66,6 +66,7 @@ int				process_cmds(t_env *env, char *input_cmd)
 	char	**split;
 	int		i;
 
+	ft_printf("1\n");
 	if (ft_strlen(input_cmd) > INPUT_MAX_LEN)
 		return (err_answer(-1, env->answer, FTP_SYNT_ERR));
 	if (!(split = ft_split(input_cmd, " \t\r\n")))
@@ -73,6 +74,7 @@ int				process_cmds(t_env *env, char *input_cmd)
 	i = -1;
 	while (split[++i])
 		;
+	ft_printf("1\n");
 	if (i > 2)
 	{
 		free_split(split);
@@ -81,7 +83,9 @@ int				process_cmds(t_env *env, char *input_cmd)
 	if ((check_cmds(env, split[0], split[1])) == -1)
 		return (err_answer(-1, env->answer, FTP_SYNT_ERR_PAR));
 	ft_strtoupper(split[0]);
+	ft_printf("1\n");
 	run_func(env, split[0], split[1]);
+	ft_printf("1\n");
 	free_split(split);
 	return (0);
 }
