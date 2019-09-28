@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 13:56:45 by fbabin            #+#    #+#             */
-/*   Updated: 2019/09/27 18:17:13 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/09/28 18:34:44 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,15 @@ void			init_cmd_hash(t_hash_list *hash)
 	i = -1;
 	ft_bzero(hash, (HASH_SIZE) * sizeof(t_hash_list));
 	t_key_val k_val[] = {{"USER", user}, {"PASS", NULL}, {"ACCT", NULL},
-						 {"CWD", NULL},   {"CDUP", NULL}, {"REIN", NULL},
+						 {"CWD", cwd},   {"CDUP", cdup}, {"REIN", NULL},
 						 {"QUIT", quit}, {"PORT", NULL}, {"PASV", NULL},
 						 {"TYPE", NULL}, {"MODE", NULL}, {"RETR", NULL},
 						 {"STOR", NULL}, {"STOU", NULL}, {"APPE", NULL},
 						 {"REST", NULL}, {"RNFR", NULL}, {"RNTO", NULL},
 						 {"ABOR", NULL}, {"DELE", NULL}, {"RMD", rmd},
-						 {"MKD", mkd},   {"PWD", NULL},   {"LIST", NULL},
+						 {"MKD", mkd},   {"PWD", pwd},   {"LIST", NULL},
 						 {"NLIST", NULL}, {"SYST", syst}, {"STAT", NULL},
-						 {"HELP", NULL}, {"NOOP", NULL}
+						 {"HELP", NULL}, {"NOOP", noop}
 	};
 	while (++i < (int)(sizeof(k_val) / sizeof(*k_val)))
 		hash_add_key_val(hash, k_val[i].key, k_val[i].val, hash_strcmp);
@@ -66,7 +66,6 @@ int				process_cmds(t_env *env, char *input_cmd)
 	char	**split;
 	int		i;
 
-	ft_printf("1\n");
 	if (ft_strlen(input_cmd) > INPUT_MAX_LEN)
 		return (err_answer(-1, env->answer, FTP_SYNT_ERR));
 	if (!(split = ft_split(input_cmd, " \t\r\n")))
@@ -74,7 +73,6 @@ int				process_cmds(t_env *env, char *input_cmd)
 	i = -1;
 	while (split[++i])
 		;
-	ft_printf("1\n");
 	if (i > 2)
 	{
 		free_split(split);
@@ -83,9 +81,7 @@ int				process_cmds(t_env *env, char *input_cmd)
 	if ((check_cmds(env, split[0], split[1])) == -1)
 		return (err_answer(-1, env->answer, FTP_SYNT_ERR_PAR));
 	ft_strtoupper(split[0]);
-	ft_printf("1\n");
 	run_func(env, split[0], split[1]);
-	ft_printf("1\n");
 	free_split(split);
 	return (0);
 }

@@ -6,18 +6,22 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 15:42:11 by fbabin            #+#    #+#             */
-/*   Updated: 2019/09/12 17:18:21 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/09/28 16:42:47 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_p.h"
 
-void	change_dir(t_env *env, char **answer_buff, char *str)
+int		cwd(t_env *env, char *param)
 {
-	ft_printf("'%s'\n", str);
-	//ft_printf("'%s'\n", str + 3);
-	chdir(str + 3);
-	get_curr_dir(env, *answer_buff);
-	//ft_printf("2::'%s'\n", *answer_buff);
+	char	abspath[PATH_MAX];
 
+	if (ft_abspath(env->user_path, param, (char*)(&abspath)) == -1)
+		return (err_answer(-1, env->answer, FTP_SYNT_BAD_SEQ));
+	if (!is_pathvalid(env->user_path, (char*)(&abspath)))
+		ft_strcpy((char*)&abspath, env->user_path);
+	if (chdir((char*)&abspath) == -1)
+		return (err_answer(-1, env->answer, FTP_FILE_NOT_AVAIL));
+	ft_strcpy(env->answer, g_ftp_reply_msg[FTP_REQ_ACT_OK]);
+	return (0);
 }

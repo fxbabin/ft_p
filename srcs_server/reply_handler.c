@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 15:16:04 by fbabin            #+#    #+#             */
-/*   Updated: 2019/09/27 16:40:33 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/09/28 15:22:02 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ const char * const g_ftp_reply_msg[] = {
 		//[FTP_DATA_CON_CLOSE] = "226 Closing data connection.\n",
 		//[FTP_PASV_MODE] = "227 Entering Passive Mode (h1,h2,h3,h4,p1,p2).\n",
 		[FTP_LOGGED_IN] = "230 User logged in, proceed.\n",
-		//[FTP_REQ_ACT_OK] = "250 Requested file action okay, completed.\n",
+		[FTP_REQ_ACT_OK] = "250 Requested file action okay, completed.\n",
 		//[FTP_PATH_CREATED] = "257 PATH created.\n",
 		//[FTP_NEED_PASS] = "331 User name okay, need password.\n",
 		//[FTP_NEED_ACC] = "332 Need account for login.\n",

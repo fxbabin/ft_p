@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/11 22:02:19 by fbabin            #+#    #+#             */
-/*   Updated: 2019/09/27 18:16:01 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/09/28 18:33:56 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,10 +140,11 @@ void		free_split(char **split);
 int			user(t_env *env, char *param);
 int			quit(t_env *env, char *param);
 int			syst(t_env *env, char *param);
-
-
 int			mkd(t_env *env, char *param);
 int			noop(t_env *env, char *param);
 int			rmd(t_env *env, char *param);
+int			cdup(t_env *env, char *param);
+int			cwd(t_env *env, char *param);
+int			pwd(t_env *env, char *param);
 
 #endif
