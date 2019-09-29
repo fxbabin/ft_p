@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 15:50:25 by fbabin            #+#    #+#             */
-/*   Updated: 2019/09/27 15:36:02 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/09/29 18:44:47 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int		user(t_env *env, char *param)
 	path[0] = '\0';
 	ft_strcpy(env->user_path, getcwd(path, PATH_MAX));
 	ft_strncpy(env->user_name, param, USER_NAME_LEN);
-	env->user_path_len = ft_strlen(env->user_path);
+	//env->user_path_len = ft_strlen(env->user_path);
 	env->is_logged = 1;
 	ft_strcpy(env->answer, g_ftp_reply_msg[FTP_LOGGED_IN]);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 15:16:04 by fbabin            #+#    #+#             */
-/*   Updated: 2019/09/28 15:22:02 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/09/29 19:07:36 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 const char * const g_ftp_reply_msg[] = {
 		//[FTP_DATA_CON_ALRDY_OPEN] = "125 Data connection already open; transfer
 		//							 starting.\n",
-		//[FTP_FILE_STAT_OK] = "150 File status okay; about to open data
-		//					  connection.\n",
+		[FTP_FILE_STAT_OK] = "150 File status okay; about to open data"
+							  "connection.\n",
 		[FTP_CMD_OK] = "200 Command okay.\n",
 		//[FTP_CMD_UNK] = "202 Command not implemented, superfluous at this 
 		//				 site.\n",
@@ -29,7 +29,7 @@ const char * const g_ftp_reply_msg[] = {
 		[FTP_LOGGED_OUT] = "221 Service closing control connection.\n",
 		//[FTP_DATA_CON_OPEN] = "225 Data connection open; no transfer in
 		//					   progress.\n",
-		//[FTP_DATA_CON_CLOSE] = "226 Closing data connection.\n",
+		[FTP_DATA_CON_CLOSE] = "226 Closing data connection.\n",
 		//[FTP_PASV_MODE] = "227 Entering Passive Mode (h1,h2,h3,h4,p1,p2).\n",
 		[FTP_LOGGED_IN] = "230 User logged in, proceed.\n",
 		[FTP_REQ_ACT_OK] = "250 Requested file action okay, completed.\n",

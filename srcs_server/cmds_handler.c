@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 13:56:45 by fbabin            #+#    #+#             */
-/*   Updated: 2019/09/28 18:34:44 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/09/29 18:45:24 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ void			init_cmd_hash(t_hash_list *hash)
 	ft_bzero(hash, (HASH_SIZE) * sizeof(t_hash_list));
 	t_key_val k_val[] = {{"USER", user}, {"PASS", NULL}, {"ACCT", NULL},
 						 {"CWD", cwd},   {"CDUP", cdup}, {"REIN", NULL},
-						 {"QUIT", quit}, {"PORT", NULL}, {"PASV", NULL},
+						 {"QUIT", quit}, {"PORT", port}, {"PASV", NULL},
 						 {"TYPE", NULL}, {"MODE", NULL}, {"RETR", NULL},
 						 {"STOR", NULL}, {"STOU", NULL}, {"APPE", NULL},
 						 {"REST", NULL}, {"RNFR", NULL}, {"RNTO", NULL},
 						 {"ABOR", NULL}, {"DELE", NULL}, {"RMD", rmd},
-						 {"MKD", mkd},   {"PWD", pwd},   {"LIST", NULL},
+						 {"MKD", mkd},   {"PWD", pwd},   {"LIST", list},
 						 {"NLIST", NULL}, {"SYST", syst}, {"STAT", NULL},
 						 {"HELP", NULL}, {"NOOP", noop}
 	};

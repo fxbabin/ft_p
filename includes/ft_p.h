@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/11 22:02:19 by fbabin            #+#    #+#             */
-/*   Updated: 2019/09/28 18:33:56 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/09/29 19:31:39 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,9 @@ typedef struct		s_env
 	char			is_logged;
 	char			user_name[USER_NAME_LEN + 1];
 	char			user_path[PATH_MAX];
-	int				user_path_len;
+	int				server_sock;
+	int				data_sock;
+	int				data_port;
 }					t_env;
 
 typedef struct		s_key_val
@@ -146,5 +148,7 @@ int			rmd(t_env *env, char *param);
 int			cdup(t_env *env, char *param);
 int			cwd(t_env *env, char *param);
 int			pwd(t_env *env, char *param);
+int			port(t_env *env, char *param);
+int			list(t_env *env, char *param);
 
 #endif
