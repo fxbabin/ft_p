@@ -23,12 +23,11 @@ int		check_port_range(char *port_str)
 	return (port);
 }
 
+
+
 int		main(int argc, char **argv)
 {
-	(void)argc;
-	(void)argv;
-	execl("/bin/ls", "/bin/ls", "-l", (char *)0);
-	/*int			sock;
+	int			sock;
 	int			port;
 	t_env		env;
 
@@ -44,7 +43,7 @@ int		main(int argc, char **argv)
 	if ((multi_client_handler(&env, sock)) == -1)
 		return (err_msg(-1, "client handler failed"));
 	close(sock);
-	return (0);*/
+	return (0);
 }
 
 /*

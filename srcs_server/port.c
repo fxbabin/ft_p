@@ -239,6 +239,58 @@ exit(0);
    (void)signum;
    wait(NULL);
    }*/
+#include <sys/time.h>
+#include <sys/resource.h>
+
+void	dup_exec(t_env *env)
+{
+	dup2(env->data_sock, 0);
+	dup2(env->data_sock, 1);
+	dup2(env->data_sock, 2);
+	close(env->data_sock);
+}
+
+int		wait_exec(pid_t pid)
+{
+	int				status;
+	struct rusage	m_rusage;
+
+	wait4(pid, &status, 0, &m_rusage);
+	//if (WEXITSTATUS(status))
+	//	return (-1);
+	return (0);
+}
+
+int		exec_cmd(t_env *env)
+{
+	pid_t			pid;
+
+	pid = fork();
+	if (pid < 0)
+	{
+		return (0);
+	}
+	if (pid == 0)
+	{
+		dup_exec(env);
+		execl("/bin/ls", "/bin/ls", "-l", (char *)0);
+		exit(EXIT_SUCCESS);
+		/*if (execv(bin, cmd_array) < 0)
+		{
+			ft_putendl("\033[1;33mError when exec the command.\033[00m");
+			return (0);
+		}*/
+	}
+	else
+	{
+		close(env->data_sock);
+		wait(NULL);
+		//if (wait_exec(pid) == -1)
+		//	return (-1);
+	}
+	return (1);
+}
+
 
 
 int		list(t_env *env, char *param)
@@ -249,7 +301,7 @@ int		list(t_env *env, char *param)
 	//int		stdout_fd;
 	//int		p_fd[2];
 	//char	buffer[4096];
-	pid_t	pid;
+	//pid_t	pid;
 
 	if (!param)
 		ft_strcpy((char*)&abspath, getcwd(path, PATH_MAX));
@@ -261,8 +313,10 @@ int		list(t_env *env, char *param)
 	if (!(env->data_sock = create_data_con("127.0.0.1", env->data_port)))
 		exit (-1);
 
-
-
+	exec_cmd(env);
+//send(env->server_sock, "\n", 1, 0);
+	//ft_printf("toto\n");
+	/*
 	pid=fork();
 
 	if(pid < 0)
@@ -289,33 +343,7 @@ int		list(t_env *env, char *param)
 		close(env->data_sock);
 		wait(NULL);
 	}
-
-	int pipefd[2];
-	pipe(pipefd);
-
-	if (fork() == 0)
-	{
-		close(pipefd[0]);    // close reading end in the child
-
-		dup2(pipefd[1], 1);  // send stdout to the pipe
-		dup2(pipefd[1], 2);  // send stderr to the pipe
-
-		close(pipefd[1]);    // this descriptor is no longer needed
-
-		exec(...);
-	}
-	else
-	{
-		// parent
-
-		char buffer[1024];
-
-		close(pipefd[1]);  // close the write end of the pipe in the parent
-
-		while (read(pipefd[0], buffer, sizeof(buffer)) != 0)
-		{
-		}
-	}
+	*/
 	/*
 	   static void execute_cmd(int fd, char *cmd, char **params) {
 	   pid_t cid;
