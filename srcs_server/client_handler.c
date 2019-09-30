@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/14 18:19:22 by fbabin            #+#    #+#             */
-/*   Updated: 2019/09/27 16:49:22 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/09/30 13:56:07 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	process_client(t_env *env, int cs)
 	int		r;
 
 	init_connexion(env->answer, cs);
+	env->server_sock = cs;
 	while ((r = read(cs, buff, 1023)) > 0)
 	{
 		if (r >= 0)

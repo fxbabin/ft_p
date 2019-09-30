@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/11 22:02:19 by fbabin            #+#    #+#             */
-/*   Updated: 2019/09/29 19:31:39 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/09/30 14:57:54 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,10 @@ void		get_rootpath(char *root, char *path, char *buff);
 int			ft_abspath(char *root, char *path, char *buff);
 
 void		free_split(char **split);
+
+int			is_dir(char *path);
+int			is_file(char *path);
+
 
 /*
 ** ---------------------------------- COMMANDS ---------------------------------
