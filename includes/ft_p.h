@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/11 22:02:19 by fbabin            #+#    #+#             */
-/*   Updated: 2019/09/30 14:57:54 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/01 14:33:31 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,5 +154,6 @@ int			cwd(t_env *env, char *param);
 int			pwd(t_env *env, char *param);
 int			port(t_env *env, char *param);
 int			list(t_env *env, char *param);
+int			stor(t_env *env, char *param);
 
 #endif

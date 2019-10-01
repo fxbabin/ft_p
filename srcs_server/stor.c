@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list.c                                             :+:      :+:    :+:   */
+/*   stor.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/01 12:05:06 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/01 14:14:41 by fbabin           ###   ########.fr       */
+/*   Created: 2019/10/01 14:15:21 by fbabin            #+#    #+#             */
+/*   Updated: 2019/10/01 18:40:21 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_p.h"
+#include <stdio.h>
 
 static int		create_data_con(char *addr, int port)
 {
@@ -33,34 +34,34 @@ static int		create_data_con(char *addr, int port)
 	return (sock);
 }
 
-int		child_list(t_env *env)
+void		get_filename(char *root, char *buff, char *path)
 {
-	if (dup2(env->data_sock, STDOUT_FILENO) < 0)
-	{
-		close(env->data_sock);
-		exit (-1);
-	}
-	if (execl("/bin/ls", "/bin/ls", "-l", (char *)0) < 0)
-	{
-		close(env->data_sock);
-		exit (-1);
-	}
-	close(env->data_sock);
-	exit(0);
+	char	*begin;
+
+	//printf("'%s'\n", path);
+	begin = ft_strrchr(path, '/');
+	if (!begin)
+		ft_abspath(root, path, buff);
+	else
+		ft_abspath(root, begin + 1, buff);
 }
 
-int		list(t_env *env, char *param)
+int		stor(t_env *env, char *param)
 {
-	char	abspath[PATH_MAX];
-	char	path[PATH_MAX];
+	char	abspath[PATH_MAX + 1];
+	//char	path[PATH_MAX];
 	pid_t	pid;
 
 	if (!param)
-		ft_strcpy((char*)&abspath, getcwd(path, PATH_MAX));
-	param = (char*)&abspath;
+		return (-1);
 	ft_strcpy(env->answer, g_ftp_reply_msg[FTP_FILE_STAT_OK]);
 	log_print_user_msg(env->user_name, env->user_id, env->answer);
 	send(env->server_sock , env->answer, ft_strlen(env->answer), 0);
+	
+	get_filename(env->user_path, (char*)&abspath, param);
+	//printf("'%s'\n", (char*)&abspath);
+	//ft_abspath(env->user_path, param, (char*)&abspath);
+	//printf("%s\n", abspath);
 	if (!(env->data_sock = create_data_con("127.0.0.1", env->data_port)))
 		exit (-1);
 
@@ -68,7 +69,33 @@ int		list(t_env *env, char *param)
 	if(pid < 0)
 		return (err_msg(-1, "fork failed"));
 	else if (pid == 0)
-		child_list(env);
+	{
+		int		fd;
+		int		r;
+		char	server_reply[2000];
+		//char	*tmp;
+
+		if ((fd = open(abspath, O_CREAT | O_WRONLY, 0644)) == -1)
+			exit(-1);
+		//printf("%s\n", "tot");
+		//ft_bzero(server_reply, 2000);
+		while ((r = recv(env->data_sock, server_reply , 2000 , 0)) > 0)
+		{
+			//server_reply[r] = '\0';
+			//tmp = ft_strreplace(server_reply, "\r\n", "\n");
+			write(fd, server_reply, r);
+			//free(tmp);
+			//ft_bzero(server_reply, 2000);
+			//printf("%s\n", server_reply);
+			//ft_printf("toto\n");
+			//fflush(stdout);
+
+		}
+		if (close(fd) == -1)
+			exit (-1);
+		close(env->data_sock);
+		exit(0);
+	}
 	else
 	{
 		close(env->data_sock);

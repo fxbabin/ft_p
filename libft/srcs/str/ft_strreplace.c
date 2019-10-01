@@ -6,7 +6,7 @@
 /*   By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 22:25:10 by fbabin            #+#    #+#             */
-/*   Updated: 2017/11/14 16:52:38 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/01 18:31:13 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,6 @@ char			*ft_strreplace(char *str, const char *old, const char *fresh)
 		else
 			*(out++) = *(str++);
 	}
+	*out = '\0';
 	return (tmp);
 }

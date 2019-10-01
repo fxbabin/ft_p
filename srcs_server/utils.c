@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/11 22:13:52 by fbabin            #+#    #+#             */
-/*   Updated: 2019/09/27 15:38:59 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/01 17:27:33 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,6 @@ void	free_split(char **split)
 
 	i = -1;
 	while (split[++i])
-		free(split[i]);
-	free(split);
+		ft_memdel((void**)&split[i]);
+	ft_memdel((void**)split);
 }

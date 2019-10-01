@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 18:14:12 by fbabin            #+#    #+#             */
-/*   Updated: 2019/09/25 15:25:02 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/01 17:35:35 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,10 @@ int		ft_abspath(char *root, char *path, char *buff)
 	else
 		getcwd(buff, PATH_MAX);
 	if (!(split = ft_strsplit(path, '/')))
+	{
+		ft_printf("here\n");
 		return (-1);
+	}
 	while (split[++i])
 	{
 	if (ft_strcmp(split[i], "..") == 0)
@@ -73,10 +76,10 @@ int		ft_abspath(char *root, char *path, char *buff)
 			ft_strcat(buff, split[i]);
 		}
 	}
-	i = -1;
-	while (split[++i])
-		free(split[i]);
-	free(split);
+	free_split(split);
+	//while (split[++i])
+	//	free(split[i]);
+	//free(split);
 	return (0);
 }
 
