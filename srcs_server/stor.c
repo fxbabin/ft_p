@@ -73,18 +73,19 @@ int		stor(t_env *env, char *param)
 		int		fd;
 		int		r;
 		char	server_reply[2000];
-		//char	*tmp;
+		char	*tmp;
 
-		if ((fd = open(abspath, O_CREAT | O_WRONLY, 0644)) == -1)
+		if ((fd = open(abspath, O_WRONLY | O_CREAT | O_TRUNC, 0644)) == -1)
 			exit(-1);
 		//printf("%s\n", "tot");
 		//ft_bzero(server_reply, 2000);
 		while ((r = recv(env->data_sock, server_reply , 2000 , 0)) > 0)
 		{
-			//server_reply[r] = '\0';
-			//tmp = ft_strreplace(server_reply, "\r\n", "\n");
-			write(fd, server_reply, r);
-			//free(tmp);
+			server_reply[r] = '\0';
+			tmp = ft_strreplace(server_reply, "\r\n", "\n");
+			//write(fd, server_reply, r);
+			write(fd, tmp, ft_strlen(tmp));
+			free(tmp);
 			//ft_bzero(server_reply, 2000);
 			//printf("%s\n", server_reply);
 			//ft_printf("toto\n");
