@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/20 12:13:44 by fbabin            #+#    #+#             */
-/*   Updated: 2019/09/27 15:48:51 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/02 18:06:39 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ int		mkd(t_env *env, char *param)
 		return (err_answer(-1, env->answer, FTP_FILE_NOT_AVAIL));
 	if ((dir = opendir((char*)(&abspath))))
 	{
-		set_buff(env->answer, "521 \"", param, "\" directory already exists.\n");
+		set_buff(env->answer, "521 \"", param,
+			"\" directory already exists.\n");
 		if ((closedir(dir)) == -1)
 			return (err_msg(-1, "could not close ROOT_DIR"));
 	}

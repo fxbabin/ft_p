@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:10:08 by fbabin            #+#    #+#             */
-/*   Updated: 2019/09/22 15:10:15 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/02 15:12:47 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		create_server(int port)
 	ft_printf("INFO : Creating server ...\n");
 	if ((proto = getprotobyname("tcp")) == 0)
 		return (-1);
-	sock = socket(PF_INET, SOCK_STREAM, proto->p_proto);
+	sock = socket(AF_INET, SOCK_STREAM, proto->p_proto);
 	sin.sin_family = AF_INET;
 	sin.sin_port = htons(port);
 	sin.sin_addr.s_addr = htonl(INADDR_ANY);
