@@ -19,7 +19,7 @@ CFLAGS			=	-Wall -Werror -Wextra
 _SRV			=	main.c server.c client_handler.c reply_handler.c \
 					cmds_handler.c utils.c path.c user.c quit.c mkd.c \
 					syst.c rmd.c noop.c cdup.c cwd.c pwd.c port.c list.c \
-					stor.c
+					stor.c utils_2.c
 
 _CLIENT			=	client.c utils.c
 

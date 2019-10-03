@@ -24,15 +24,6 @@ void	server_usage(char *prog_name)
 	exit(-1);
 }
 
-void	ft_strtoupper(char *cmd)
-{
-	int		i;
-
-	i = -1;
-	while (cmd[++i])
-		cmd[i] = ft_toupper(cmd[i]);
-}
-
 int		err_answer(int ret, char *answer, int idx)
 {
 	ft_strcpy(answer, g_ftp_reply_msg[idx]);
@@ -59,14 +50,4 @@ int		log_print_user_msg(char *user, int user_id, char *cmd)
 		return (-1);
 	ft_printf("%-*s(%d) : %s", USER_NAME_LEN, user, user_id, cmd);
 	return (0);
-}
-
-void	free_split(char **split)
-{
-	int		i;
-
-	i = -1;
-	while (split[++i])
-		ft_memdel((void**)&split[i]);
-	ft_memdel((void**)split);
 }

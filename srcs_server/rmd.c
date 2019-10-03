@@ -12,24 +12,24 @@
 
 #include "ft_p.h"
 
-void	child_rmd(char *param)
+void			child_rmd(char *param)
 {
 	execl("/bin/rm", "rm", "-rf", param, NULL);
-	exit (0);
+	exit(0);
 }
 
-static void	signal_handler(int signum)
+static void		signal_handler(int signum)
 {
 	(void)signum;
 	wait(NULL);
 }
 
-int		rmd(t_env *env, char *param)
+int				rmd(t_env *env, char *param)
 {
 	char	abspath[PATH_MAX];
 	DIR		*dir;
 	int		pid;
-	
+
 	if (!param)
 		return (err_answer(-1, env->answer, FTP_SYNT_BAD_SEQ));
 	if (ft_abspath(env->user_path, param, (char*)(&abspath)) == -1)
@@ -40,8 +40,7 @@ int		rmd(t_env *env, char *param)
 	{
 		if (closedir(dir) == -1)
 			return (err_msg(-1, "could not close dir"));
-		pid = fork();
-		if (pid < 0)
+		if ((pid = fork()) < 0)
 			return (err_msg(-1, "client fork failed"));
 		else if (pid == 0)
 			child_rmd(param);

@@ -14,21 +14,21 @@
 
 void			init_cmd_hash(t_hash_list *hash)
 {
-	int		i;
+	int				i;
+	const t_key_val k_val[] = {{"USER", user}, {"PASS", NULL}, {"ACCT", NULL},
+						{"CWD", cwd}, {"CDUP", cdup}, {"REIN", NULL},
+						{"QUIT", quit}, {"PORT", port}, {"PASV", NULL},
+						{"TYPE", NULL}, {"MODE", NULL}, {"RETR", NULL},
+						{"STOR", stor}, {"STOU", NULL}, {"APPE", NULL},
+						{"REST", NULL}, {"RNFR", NULL}, {"RNTO", NULL},
+						{"ABOR", NULL}, {"DELE", NULL}, {"RMD", rmd},
+						{"MKD", mkd}, {"PWD", pwd}, {"LIST", list},
+						{"NLIST", NULL}, {"SYST", syst}, {"STAT", NULL},
+						{"HELP", NULL}, {"NOOP", noop}
+	};
 
 	i = -1;
 	ft_bzero(hash, (HASH_SIZE) * sizeof(t_hash_list));
-	t_key_val k_val[] = {{"USER", user}, {"PASS", NULL}, {"ACCT", NULL},
-						 {"CWD", cwd},   {"CDUP", cdup}, {"REIN", NULL},
-						 {"QUIT", quit}, {"PORT", port}, {"PASV", NULL},
-						 {"TYPE", NULL}, {"MODE", NULL}, {"RETR", NULL},
-						 {"STOR", stor}, {"STOU", NULL}, {"APPE", NULL},
-						 {"REST", NULL}, {"RNFR", NULL}, {"RNTO", NULL},
-						 {"ABOR", NULL}, {"DELE", NULL}, {"RMD", rmd},
-						 {"MKD", mkd},   {"PWD", pwd},   {"LIST", list},
-						 {"NLIST", NULL}, {"SYST", syst}, {"STAT", NULL},
-						 {"HELP", NULL}, {"NOOP", noop}
-	};
 	while (++i < (int)(sizeof(k_val) / sizeof(*k_val)))
 		hash_add_key_val(hash, k_val[i].key, k_val[i].val, hash_strcmp);
 }
@@ -47,16 +47,8 @@ static int		run_func(t_env *env, char *cmd, char *param)
 
 static int		check_cmds(t_env *env, char *cmd, char *param)
 {
-	//int		i;
-
-	//i = -1;
 	if (ft_strlen(cmd) > CMD_MAX_LEN)
 		return (err_answer(-1, env->answer, FTP_SYNT_ERR));
-	/*while (param[++i])
-	{
-		if (!ft_isalpha(param[i]) && param[i] != '/' && param[i] != '.')
-			return (err_answer(-1, env->answer, FTP_SYNT_ERR));
-	}*/
 	(void)param;
 	return (0);
 }
