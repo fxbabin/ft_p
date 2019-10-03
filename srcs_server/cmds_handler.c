@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 13:56:45 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/01 14:33:08 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/03 19:41:02 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void			init_cmd_hash(t_hash_list *hash)
 						{"TYPE", NULL}, {"MODE", NULL}, {"RETR", retr},
 						{"STOR", stor}, {"STOU", NULL}, {"APPE", NULL},
 						{"REST", NULL}, {"RNFR", NULL}, {"RNTO", NULL},
-						{"ABOR", NULL}, {"DELE", NULL}, {"RMD", rmd},
+						{"ABOR", NULL}, {"DELE", dele}, {"RMD", rmd},
 						{"MKD", mkd}, {"PWD", pwd}, {"LIST", list},
 						{"NLIST", NULL}, {"SYST", syst}, {"STAT", NULL},
 						{"HELP", NULL}, {"NOOP", noop}

@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/03 16:38:56 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/03 16:39:08 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/03 20:10:01 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,15 @@ int		retr(t_env *env, char *param)
 
 	if (!param)
 		return (-1);
-	ft_strcpy(env->answer, g_ftp_reply_msg[FTP_FILE_STAT_OK]);
-	log_print_user_msg(env->user_name, env->user_id, env->answer);
-	send(env->server_sock, env->answer, ft_strlen(env->answer), 0);
 	if (ft_abspath(env->user_path, param, (char*)&abspath) == -1)
 		return (err_answer(-1, env->answer, FTP_FILE_NOT_PERM));
 	if (!(is_pathvalid(env->user_path, (char*)&abspath)))
 		return (err_answer(-1, env->answer, FTP_FILE_NOT_PERM));
+	if (is_file((char*)&abspath) <= 0)
+		return (err_answer(-1, env->answer, FTP_FILE_NOT_PERM));
+	ft_strcpy(env->answer, g_ftp_reply_msg[FTP_FILE_STAT_OK]);
+	log_print_user_msg(env->user_name, env->user_id, env->answer);
+	send(env->server_sock, env->answer, ft_strlen(env->answer), 0);
 	if (!(env->data_sock = create_data_con("127.0.0.1", env->data_port)))
 		return (err_msg(-1, "could not create data sock"));
 	if ((pid = fork()) < 0)

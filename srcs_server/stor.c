@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 14:15:21 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/03 18:12:15 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/03 20:09:59 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ int			get_filename(char *root, char *buff, char *path)
 			return (-1);
 	}
 	if (!is_pathvalid(root, buff))
-		return (-1);
-	if ((is_file(buff)) <= 0)
 		return (-1);
 	return (0);
 }
