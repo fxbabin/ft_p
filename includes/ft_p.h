@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/11 22:02:19 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/02 15:54:16 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/03 17:57:38 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct		s_env
 	int				server_sock;
 	int				data_sock;
 	int				data_port;
+	char			data_ip[17];
 }					t_env;
 
 typedef struct		s_key_val
@@ -155,5 +156,6 @@ int			pwd(t_env *env, char *param);
 int			port(t_env *env, char *param);
 int			list(t_env *env, char *param);
 int			stor(t_env *env, char *param);
+int			retr(t_env *env, char *param);
 
 #endif

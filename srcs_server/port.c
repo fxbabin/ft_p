@@ -12,6 +12,17 @@
 
 #include "ft_p.h"
 
+void	get_ip(t_env *env, char **split)
+{
+	ft_strcpy(env->data_ip, split[0]);
+	ft_strcat(env->data_ip, ".");
+	ft_strcat(env->data_ip, split[1]);
+	ft_strcat(env->data_ip, ".");
+	ft_strcat(env->data_ip, split[2]);
+	ft_strcat(env->data_ip, ".");
+	ft_strcat(env->data_ip, split[3]);
+}
+
 int		port(t_env *env, char *param)
 {
 	char	**split;
@@ -29,6 +40,8 @@ int		port(t_env *env, char *param)
 	}
 	if (i != 6)
 		return (err_answer(-1, env->answer, FTP_SYNT_ERR_PAR));
+	get_ip(env, split);
+	ft_printf("%s\n", env->data_ip);
 	env->data_port = ft_atoi(split[4]) * 256 + ft_atoi(split[5]);
 	ft_strcpy(env->answer, g_ftp_reply_msg[FTP_CMD_OK]);
 	free_split(split);

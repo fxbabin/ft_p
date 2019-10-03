@@ -18,7 +18,7 @@ void			init_cmd_hash(t_hash_list *hash)
 	const t_key_val k_val[] = {{"USER", user}, {"PASS", NULL}, {"ACCT", NULL},
 						{"CWD", cwd}, {"CDUP", cdup}, {"REIN", NULL},
 						{"QUIT", quit}, {"PORT", port}, {"PASV", NULL},
-						{"TYPE", NULL}, {"MODE", NULL}, {"RETR", NULL},
+						{"TYPE", NULL}, {"MODE", NULL}, {"RETR", retr},
 						{"STOR", stor}, {"STOU", NULL}, {"APPE", NULL},
 						{"REST", NULL}, {"RNFR", NULL}, {"RNTO", NULL},
 						{"ABOR", NULL}, {"DELE", NULL}, {"RMD", rmd},
