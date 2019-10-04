@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/11 22:00:18 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/02 16:28:19 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/04 22:45:16 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int		main(int argc, char **argv)
 		server_usage(argv[0]);
 	if ((port = check_port_range(argv[1])) == -1)
 		return (1);
-	if ((sock = create_server(port)) == -1)
+	if ((sock = create_server(argv[1])) == -1)
 		return (-1);
 	if ((init_server_file_system(&env)) == -1)
 		return (-1);

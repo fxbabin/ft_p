@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/11 22:02:19 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/03 19:38:37 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/04 22:46:23 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # define INPUT_MAX_LEN	128
 # define MAX_USERS		128
 # define USER_NAME_LEN	6
+# define PASS_SALT		"xF"
 
 /*
 ** -------------------------------- STRUCTURES ---------------------------------
@@ -117,7 +118,7 @@ void		server_usage(char *prog_name);
 int			log_print(void);
 int			log_print_user_msg(char *user, int user_id, char *cmd);
 
-int			create_server(int port);
+int			create_server(char *port);
 int			init_server_file_system(t_env *env);
 
 void		init_cmd_hash(t_hash_list *hash);
@@ -158,5 +159,6 @@ int			list(t_env *env, char *param);
 int			stor(t_env *env, char *param);
 int			retr(t_env *env, char *param);
 int			dele(t_env *env, char *param);
+int			pass(t_env *env, char *param);
 
 #endif

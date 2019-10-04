@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 13:56:45 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/03 19:41:02 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/04 13:07:25 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void			init_cmd_hash(t_hash_list *hash)
 {
 	int				i;
-	const t_key_val k_val[] = {{"USER", user}, {"PASS", NULL}, {"ACCT", NULL},
+	const t_key_val k_val[] = {{"USER", user}, {"PASS", pass}, {"ACCT", NULL},
 						{"CWD", cwd}, {"CDUP", cdup}, {"REIN", NULL},
 						{"QUIT", quit}, {"PORT", port}, {"PASV", NULL},
 						{"TYPE", NULL}, {"MODE", NULL}, {"RETR", retr},

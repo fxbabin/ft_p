@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 15:16:04 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/02 18:10:17 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/04 13:10:50 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ const char *const g_ftp_reply_msg[] = {
 	[FTP_DATA_CON_CLOSE] = "226 Closing data connection.\n",
 	[FTP_LOGGED_IN] = "230 User logged in, proceed.\n",
 	[FTP_REQ_ACT_OK] = "250 Requested file action okay, completed.\n",
+	[FTP_NEED_PASS] = "331 User name okay, need password.\n",
 	[FTP_SERV_NOT_AVAIL] = "421 Service not available, closing control "
 	"connection.\n",
 	[FTP_SYNT_ERR] = "500 Syntax error, command unrecognized.\n",
@@ -49,7 +50,6 @@ const char *const g_ftp_reply_msg[] = {
 		//					   progress.\n",
 		//[FTP_PASV_MODE] = "227 Entering Passive Mode (h1,h2,h3,h4,p1,p2).\n",
 		//[FTP_PATH_CREATED] = "257 PATH created.\n",
-		//[FTP_NEED_PASS] = "331 User name okay, need password.\n",
 		//[FTP_NEED_ACC] = "332 Need account for login.\n",
 		//[FTP_ACT_PENDING] = "350 Requested file action pending further "
 		//					 "information.\n",
