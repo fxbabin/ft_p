@@ -6,31 +6,11 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/03 16:38:56 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/03 20:10:01 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/05 17:47:17 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_p.h"
-
-static int		create_data_con(char *addr, int port)
-{
-	int					sock;
-	struct protoent		*proto;
-	struct sockaddr_in	sin;
-
-	if ((proto = getprotobyname("tcp")) == 0)
-		return (-1);
-	sock = socket(PF_INET, SOCK_STREAM, proto->p_proto);
-	sin.sin_family = AF_INET;
-	sin.sin_port = htons(port);
-	sin.sin_addr.s_addr = inet_addr(addr);
-	if (connect(sock, (const struct sockaddr *)&sin, sizeof(sin)) == -1)
-	{
-		ft_printf("Can't connect to '%s': connection error\n", addr);
-		return (-1);
-	}
-	return (sock);
-}
 
 void	retr_child(t_env *env, char *abspath)
 {
@@ -62,13 +42,10 @@ int		retr(t_env *env, char *param)
 	char	abspath[PATH_MAX + 1];
 	int		pid;
 
-	if (!param)
-		return (-1);
-	if (ft_abspath(env->user_path, param, (char*)&abspath) == -1)
+	if (!param || ft_abspath(env->user_path, param, (char*)&abspath) == -1)
 		return (err_answer(-1, env->answer, FTP_FILE_NOT_PERM));
-	if (!(is_pathvalid(env->user_path, (char*)&abspath)))
-		return (err_answer(-1, env->answer, FTP_FILE_NOT_PERM));
-	if (is_file((char*)&abspath) <= 0)
+	if (!(is_pathvalid(env->user_path, (char*)&abspath))
+		|| is_file((char*)&abspath) <= 0)
 		return (err_answer(-1, env->answer, FTP_FILE_NOT_PERM));
 	ft_strcpy(env->answer, g_ftp_reply_msg[FTP_FILE_STAT_OK]);
 	log_print_user_msg(env->user_name, env->user_id, env->answer);

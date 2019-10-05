@@ -6,32 +6,11 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 14:15:21 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/03 20:09:59 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/05 17:45:20 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_p.h"
-#include <stdio.h>
-
-static int		create_data_con(char *addr, int port)
-{
-	int					sock;
-	struct protoent		*proto;
-	struct sockaddr_in	sin;
-
-	if ((proto = getprotobyname("tcp")) == 0)
-		return (-1);
-	sock = socket(PF_INET, SOCK_STREAM, proto->p_proto);
-	sin.sin_family = AF_INET;
-	sin.sin_port = htons(port);
-	sin.sin_addr.s_addr = inet_addr(addr);
-	if (connect(sock, (const struct sockaddr *)&sin, sizeof(sin)) == -1)
-	{
-		ft_printf("Can't connect to '%s': connection error\n", addr);
-		return (-1);
-	}
-	return (sock);
-}
 
 int			get_filename(char *root, char *buff, char *path)
 {
@@ -53,7 +32,7 @@ int			get_filename(char *root, char *buff, char *path)
 	return (0);
 }
 
-void			child_stor(t_env *env, char *abspath)
+void		child_stor(t_env *env, char *abspath)
 {
 	int		fd;
 	int		r;
@@ -78,7 +57,7 @@ void			child_stor(t_env *env, char *abspath)
 	exit(0);
 }
 
-int				stor(t_env *env, char *param)
+int			stor(t_env *env, char *param)
 {
 	char	abspath[PATH_MAX + 1];
 	pid_t	pid;

@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/11 22:02:19 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/04 22:46:23 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/05 18:05:40 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,47 +29,49 @@
 # include <dirent.h>
 # include <errno.h>
 
-# define HASH_SIZE		148
-# define ROOT_DIR		"./ROOT_DIR"
-# define CMD_MAX_LEN	4
-# define INPUT_MAX_LEN	128
-# define MAX_USERS		128
-# define USER_NAME_LEN	6
-# define PASS_SALT		"xF"
+# define HASH_SIZE			184
+# define ROOT_DIR			"./ROOT_DIR"
+# define CMD_MAX_LEN		4
+# define INPUT_MAX_LEN		128
+# define MAX_USERS			128
+# define USER_NAME_LEN		6
+# define PASS_SALT			"xF"
+# define IPV6_LEN			46
 
 /*
 ** -------------------------------- STRUCTURES ---------------------------------
 */
 
-typedef struct		s_env
+typedef struct				s_env
 {
-	char			answer[PATH_MAX + INPUT_MAX_LEN];
-	char			users[MAX_USERS + 1];
-	t_hash_list		hash[HASH_SIZE];
-	char			root_path[PATH_MAX];
-	int				user_id;
-	char			is_logged;
-	char			user_name[USER_NAME_LEN + 1];
-	char			user_path[PATH_MAX];
-	int				server_sock;
-	int				data_sock;
-	int				data_port;
-	char			data_ip[17];
-}					t_env;
+	char					answer[PATH_MAX + INPUT_MAX_LEN];
+	char					users[MAX_USERS + 1];
+	t_hash_list				hash[HASH_SIZE];
+	char					root_path[PATH_MAX];
+	char					is_logged;
+	int						user_id;
+	char					user_name[USER_NAME_LEN + 1];
+	char					user_path[PATH_MAX];
+	int						server_sock;
+	int						data_sock;
+	char					data_port[6];
+	char					data_ip[IPV6_LEN];
+}							t_env;
 
-typedef struct		s_key_val
+typedef struct				s_key_val
 {
-	void			*key;
-	void			*val;
-}					t_key_val;
+	void					*key;
+	void					*val;
+}							t_key_val;
 
-extern const char * const g_ftp_reply_msg[];
+extern const char * const	g_ftp_reply_msg[];
 
 /*
 ** --------------------------------- CMD_ENUM ----------------------------------
 */
 
-enum ftp_reply_code {
+enum	e_ftp_reply_code
+{
 	FTP_DATA_CON_ALRDY_OPEN = 1,
 	FTP_FILE_STAT_OK,
 	FTP_CMD_OK,
@@ -111,54 +113,49 @@ enum ftp_reply_code {
 ** -----------------------------------------------------------------------------
 */
 
-int			err_msg(int ret, char *msg);
-int			err_answer(int ret, char *answer, int idx);
-void		ft_strtoupper(char *cmd);
-void		server_usage(char *prog_name);
-int			log_print(void);
-int			log_print_user_msg(char *user, int user_id, char *cmd);
+int							err_msg(int ret, char *msg);
+int							err_answer(int ret, char *answer, int idx);
+void						ft_strtoupper(char *cmd);
+void						server_usage(char *prog_name);
+int							log_print(void);
+int							log_print_user_msg(char *user, int user_id,
+								char *cmd);
+int							create_server(char *port);
+int							init_server_file_system(t_env *env);
 
-int			create_server(char *port);
-int			init_server_file_system(t_env *env);
+void						init_cmd_hash(t_hash_list *hash);
+int							process_cmds(t_env *env, char *input_cmd);
 
-void		init_cmd_hash(t_hash_list *hash);
-int			process_cmds(t_env *env, char *input_cmd);
+int							multi_client_handler(t_env *env, int sock);
+int							check_port_range(char *port_str);
 
-int			multi_client_handler(t_env *env, int sock);
-int			check_port_range(char *port_str);
-
-
-int			is_dir(char *path);
-int			is_file(char *path);
-int			is_pathvalid(char *root, char *path);
-void		get_rootpath(char *root, char *path, char *buff);
-int			ft_abspath(char *root, char *path, char *buff);
-
-void		free_split(char **split);
-
-int			is_dir(char *path);
-int			is_file(char *path);
-
+int							is_dir(char *path);
+int							is_file(char *path);
+int							is_pathvalid(char *root, char *path);
+void						get_rootpath(char *root, char *path, char *buff);
+int							ft_abspath(char *root, char *path, char *buff);
+void						free_split(char **split);
+int							create_data_con(char *addr, char *port);
 
 /*
 ** ---------------------------------- COMMANDS ---------------------------------
 */
 
-
-int			user(t_env *env, char *param);
-int			quit(t_env *env, char *param);
-int			syst(t_env *env, char *param);
-int			mkd(t_env *env, char *param);
-int			noop(t_env *env, char *param);
-int			rmd(t_env *env, char *param);
-int			cdup(t_env *env, char *param);
-int			cwd(t_env *env, char *param);
-int			pwd(t_env *env, char *param);
-int			port(t_env *env, char *param);
-int			list(t_env *env, char *param);
-int			stor(t_env *env, char *param);
-int			retr(t_env *env, char *param);
-int			dele(t_env *env, char *param);
-int			pass(t_env *env, char *param);
+int							user(t_env *env, char *param);
+int							quit(t_env *env, char *param);
+int							syst(t_env *env, char *param);
+int							mkd(t_env *env, char *param);
+int							noop(t_env *env, char *param);
+int							rmd(t_env *env, char *param);
+int							cdup(t_env *env, char *param);
+int							cwd(t_env *env, char *param);
+int							pwd(t_env *env, char *param);
+int							port(t_env *env, char *param);
+int							list(t_env *env, char *param);
+int							stor(t_env *env, char *param);
+int							retr(t_env *env, char *param);
+int							dele(t_env *env, char *param);
+int							pass(t_env *env, char *param);
+int							eprt(t_env *env, char *param);
 
 #endif

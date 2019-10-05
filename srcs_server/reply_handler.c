@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 15:16:04 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/04 13:10:50 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/05 17:44:33 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,27 +36,3 @@ const char *const g_ftp_reply_msg[] = {
 	[FTP_FILE_NOT_PERM] = "553 Requested action not taken: name not "
 	"allowed\n",
 };
-
-/*
-	[FTP_DATA_CON_ALRDY_OPEN] = "125 Data connection already open; transfer
-								 starting.\n",
-			//[FTP_CMD_UNK] = "202 Command not implemented, superfluous at this
-		//				 site.\n",
-		//[FTP_SYST_STAT] = "211 System status, or system help reply.\n",
-		//[FTP_DIR_STAT] = "212 Directory status.\n",
-		//[FTP_FILE_STAT] = "213 File status.\n",
-		//[FTP_HELP_MSG] = "214 Help message.\n",
-		//[FTP_DATA_CON_OPEN] = "225 Data connection open; no transfer in
-		//					   progress.\n",
-		//[FTP_PASV_MODE] = "227 Entering Passive Mode (h1,h2,h3,h4,p1,p2).\n",
-		//[FTP_PATH_CREATED] = "257 PATH created.\n",
-		//[FTP_NEED_ACC] = "332 Need account for login.\n",
-		//[FTP_ACT_PENDING] = "350 Requested file action pending further "
-		//					 "information.\n",
-		//[FTP_NO_DATA_CON] = "425 Can't open data connection.\n",
-		//[FTP_CON_CLOSE] = "426 Connection closed; transfer aborted.\n",
-		//[FTP_FILE_BUSY] = "450 Action not taken: File unavailable.\n",
-		//[FTP_UNK_TYPE] = "551 Requested action aborted: page type unknown.\n",
-		//[FTP_EXCEED_ALLOC] = "552 Requested file action aborted: Exceeded "
-		//					  "storage allocation\n",
-*/

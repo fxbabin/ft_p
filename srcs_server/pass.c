@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/04 12:44:13 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/04 21:52:55 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/05 17:51:37 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,17 @@ int		check_user_pass(t_env *env, char *param, char *line)
 int		check_password(t_env *env, char *param)
 {
 	char	path[PATH_MAX];
-	int		fd;
 	char	*line;
+	int		fd;
+	int		ret;
+	int		r;
 
-	(void)param;
 	line = NULL;
 	path[0] = '\0';
 	ft_strcpy(path, env->root_path);
 	ft_strcat(path, "/ftp_passwd.txt");
 	if ((fd = open(path, O_RDONLY)) == -1)
 		return (-1);
-	int		ret;
-	int		r;
-
 	while ((ret = sget_next_line(fd, &line)) > 0)
 	{
 		if ((r = check_user_pass(env, param, line)) != 0)

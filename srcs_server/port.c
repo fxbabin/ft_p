@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/29 16:14:54 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/03 20:11:17 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/05 17:52:01 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	get_ip(t_env *env, char **split)
 int		port(t_env *env, char *param)
 {
 	char	**split;
+	char	*t;
 	int		tmp;
 	int		i;
 
@@ -43,7 +44,9 @@ int		port(t_env *env, char *param)
 	if (i != 6)
 		return (err_answer(-1, env->answer, FTP_SYNT_ERR_PAR));
 	get_ip(env, split);
-	env->data_port = ft_atoi(split[4]) * 256 + ft_atoi(split[5]);
+	t = ft_itoa(ft_atoi(split[4]) * 256 + ft_atoi(split[5]));
+	ft_strcpy(env->data_port, t);
+	free(t);
 	ft_strcpy(env->answer, g_ftp_reply_msg[FTP_CMD_OK]);
 	free_split(split);
 	return (0);
