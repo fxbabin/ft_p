@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/11 22:02:19 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/05 18:05:40 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/06 22:56:27 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 # define USER_NAME_LEN		6
 # define PASS_SALT			"xF"
 # define IPV6_LEN			46
-
+# define CMD_HASH_SIZE		142
 /*
 ** -------------------------------- STRUCTURES ---------------------------------
 */
@@ -64,6 +64,18 @@ typedef struct				s_key_val
 	void					*val;
 }							t_key_val;
 
+typedef struct				s_cenv
+{
+	char					cmd[PATH_MAX + INPUT_MAX_LEN];
+	char					reply[PATH_MAX + INPUT_MAX_LEN];
+	t_hash_list				cmd_hash[CMD_HASH_SIZE];
+	int						csock;
+	int						data_sock;
+	char					data_port[6];
+	char					data_ip[IPV6_LEN];
+
+}							t_cenv;
+
 extern const char * const	g_ftp_reply_msg[];
 
 /*
@@ -72,45 +84,51 @@ extern const char * const	g_ftp_reply_msg[];
 
 enum	e_ftp_reply_code
 {
-	FTP_DATA_CON_ALRDY_OPEN = 1,
-	FTP_FILE_STAT_OK,
+	FTP_FILE_STAT_OK = 1,
 	FTP_CMD_OK,
-	FTP_CMD_UNK,
-	FTP_SYST_STAT,
-	FTP_DIR_STAT,
-	FTP_FILE_STAT,
-	FTP_HELP_MSG,
 	FTP_SYST_NAME,
 	FTP_SERV_RDY,
 	FTP_LOGGED_OUT,
 	FTP_DATA_CON_OPEN,
 	FTP_DATA_CON_CLOSE,
-	FTP_PASV_MODE,
 	FTP_LOGGED_IN,
 	FTP_REQ_ACT_OK,
-	FTP_PATH_CREATED,
 	FTP_NEED_PASS,
-	FTP_NEED_ACC,
-	FTP_ACT_PENDING,
 	FTP_SERV_NOT_AVAIL,
-	FTP_NO_DATA_CON,
 	FTP_CON_CLOSE,
-	FTP_FILE_BUSY,
 	FTP_SYNT_ERR,
 	FTP_SYNT_ERR_PAR,
 	FTP_SYNT_ERR_UNK_CMD,
 	FTP_SYNT_BAD_SEQ,
 	FTP_NOT_LOGGED,
 	FTP_FILE_NOT_AVAIL,
-	FTP_UNK_TYPE,
-	FTP_EXCEED_ALLOC,
 	FTP_FILE_NOT_PERM
+};
+
+enum	e_help_client
+{
+	HELP_LS = 50,
+	HELP_PWD,
+	HELP_USER,
+	HELP_CD,
+	HELP_MKDIR,
+	HELP_RMDIR,
+	HELP_QUIT,
+	HELP_PUT,
+	HELP_GET,
+	HELP_LLS,
+	HELP_LPWD,
+	HELP_LCD,
 };
 
 /*
 ** -----------------------------------------------------------------------------
 ** --------------------------------- PROTOTYPES --------------------------------
 ** -----------------------------------------------------------------------------
+*/
+
+/*
+** ---------------------------- SERVER PROTO ---------------------------------
 */
 
 int							err_msg(int ret, char *msg);
@@ -138,7 +156,7 @@ void						free_split(char **split);
 int							create_data_con(char *addr, char *port);
 
 /*
-** ---------------------------------- COMMANDS ---------------------------------
+** ---------------------------- SERVER COMMANDS ---------------------------------
 */
 
 int							user(t_env *env, char *param);
@@ -157,5 +175,19 @@ int							retr(t_env *env, char *param);
 int							dele(t_env *env, char *param);
 int							pass(t_env *env, char *param);
 int							eprt(t_env *env, char *param);
+
+/*
+** ---------------------------- CLIENT PROTO ---------------------------------
+*/
+
+void						client_usage(char *prog_name);
+int							create_client(char *addr, char *port);
+int							client_handler(t_cenv *cenv);
+int							receive_reply(t_cenv *cenv);
+void						init_ccmd_hash(t_hash_list *hash);
+int							process_ccmds(t_cenv *cenv, char *input_cmd);
+
+int							cquit(t_cenv *cenv, char *param);
+int							cuser(t_cenv *cenv, char *param);
 
 #endif

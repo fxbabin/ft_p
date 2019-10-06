@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/05 17:33:56 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/05 18:06:56 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/06 15:49:49 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ int		create_data_con(char *addr, char *port)
 	hints.ai_family = PF_UNSPEC;
 	hints.ai_protocol = IPPROTO_TCP;
 	hints.ai_socktype = SOCK_STREAM;
-	hints.ai_flags = AI_PASSIVE;
 	if ((ret = getaddrinfo(NULL, port, &hints, &res_init)) != 0)
 		return (err_msg(-1, "getaddrinfo failed"));
 	if ((sock = get_datasock(res_init)) == -1)
