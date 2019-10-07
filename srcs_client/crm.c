@@ -1,32 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   crm.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/06 15:39:09 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/07 22:09:11 by fbabin           ###   ########.fr       */
+/*   Created: 2019/10/07 19:44:25 by fbabin            #+#    #+#             */
+/*   Updated: 2019/10/07 19:45:33 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_p.h"
 
-int		main(int argc, char **argv)
+int		crm(t_cenv *cenv, char *param)
 {
-	t_cenv	cenv;
-	int		port;
+	char	answer[128];
+	int		ret;
 
-	if (argc != 3)
-		server_usage(argv[0]);
-	if ((port = check_port_range(argv[2])) == -1)
+	answer[0] = '\0';
+	if (!param)
+		return (err_msg(-1, "no path given !"));
+	if (ft_strlen(param) >= PATH_MAX)
+		return (err_msg(-1, "path too long !"));
+	bufferize_cmd((char*)&answer, "DELE ", param);
+	if ((ret = send(cenv->csock, answer, ft_strlen(answer), 0)) == -1)
 		return (-1);
-	if ((cenv.csock = create_client(argv[1], argv[2])) == -1)
+	if (receive_reply(cenv) == -1)
 		return (-1);
-	init_ccmd_hash((t_hash_list*)&(cenv.cmd_hash));
-	ft_strcpy(cenv.data_ip, argv[1]);
-	ft_strcpy(cenv.data_port, argv[2]);
-	client_handler(&cenv);
-	close(cenv.csock);
+	if (ft_strncmp(cenv->reply, "250", 3) == 0)
+		return (0);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/06 15:46:22 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/06 22:13:07 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/07 11:56:36 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,23 @@
 
 int		client_handler(t_cenv *cenv)
 {
-	char		*line;
+	char		buff[128];
+	int			ret;
 
-	line = NULL;
 	if (receive_reply(cenv) == -1)
 		return (-1);
 	ft_putstr("ftp> ");
-	while ((sget_next_line(0, &line)) > 0)
+	buff[0] = '\0';
+	while ((ret = read(0, buff, 128)) > 0)
 	{
-		if (cenv->csock < 0)
+		if (ret == 1)
+			;
+		else if (cenv->csock < 0)
 			ft_putstr("Not connected.\n");
 		else
-		{
-			if (process_ccmds(cenv, line) == -1)
-				break ;
-		}
-		free(line);
+			process_ccmds(cenv, (char*)&buff);
 		ft_putstr("ftp> ");
+		buff[0] = '\0';
 	}
-	free(line);
 	return (0);
 }

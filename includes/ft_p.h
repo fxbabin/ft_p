@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/11 22:02:19 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/06 22:56:27 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/07 23:46:01 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,9 @@ typedef struct				s_cenv
 	t_hash_list				cmd_hash[CMD_HASH_SIZE];
 	int						csock;
 	int						data_sock;
+	char					data_ipv[2];
 	char					data_port[6];
+	char					tmp_port[6];
 	char					data_ip[IPV6_LEN];
 
 }							t_cenv;
@@ -151,7 +153,8 @@ int							is_dir(char *path);
 int							is_file(char *path);
 int							is_pathvalid(char *root, char *path);
 void						get_rootpath(char *root, char *path, char *buff);
-int							ft_abspath(char *root, char *path, char *buff);
+int							ft_servtoreal(char *root, char *path, char *buff);
+void						ft_realtoserv(char *root, char *path, char *buff);
 void						free_split(char **split);
 int							create_data_con(char *addr, char *port);
 
@@ -186,8 +189,18 @@ int							client_handler(t_cenv *cenv);
 int							receive_reply(t_cenv *cenv);
 void						init_ccmd_hash(t_hash_list *hash);
 int							process_ccmds(t_cenv *cenv, char *input_cmd);
+void						bufferize_cmd(char *buff, char *cmd, char *param);
 
 int							cquit(t_cenv *cenv, char *param);
 int							cuser(t_cenv *cenv, char *param);
+int							cpwd(t_cenv *cenv, char *param);
+int							clls(t_cenv *cenv, char *param);
+int							clpwd(t_cenv *cenv, char *param);
+int							clcd(t_cenv *cenv, char *param);
+int							ccd(t_cenv *cenv, char *param);
+int							cmkdir(t_cenv *cenv, char *param);
+int							crmdir(t_cenv *cenv, char *param);
+int							crm(t_cenv *cenv, char *param);
+int							cls(t_cenv *cenv, char *param);
 
 #endif

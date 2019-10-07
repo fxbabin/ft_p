@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/11 22:13:52 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/06 21:51:48 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/07 15:59:34 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,13 @@ void	free_split(char **split)
 	while (split[++i])
 		ft_memdel((void**)&split[i]);
 	ft_memdel((void**)split);
+}
+
+void	bufferize_cmd(char *buff, char *cmd, char *param)
+{
+	ft_bzero(buff, 128);
+	ft_strcpy(buff, cmd);
+	if (param)
+		ft_strncat(buff, param, 122);
+	ft_strcat(buff, "\n");
 }

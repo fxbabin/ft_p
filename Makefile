@@ -6,7 +6,7 @@
 #    By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/17 21:49:09 by fbabin            #+#    #+#              #
-#    Updated: 2019/10/06 22:57:10 by fbabin           ###   ########.fr        #
+#    Updated: 2019/10/07 22:19:33 by fbabin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,8 @@ _SRV			=	main.c server.c client_handler.c reply_handler.c \
 					data_connection.c
 
 _CLIENT			=	main.c client.c client_handler.c utils.c process_cmd.c \
-					cquit.c cuser.c
+					cquit.c cuser.c cpwd.c clls.c clpwd.c clcd.c ccd.c \
+					cmkdir.c crmdir.c cls.c
 
 SRV_DIR			=	srcs_server
 CLIENT_DIR		=	srcs_client

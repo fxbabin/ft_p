@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 18:14:12 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/03 18:12:43 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/07 18:06:14 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int		is_file(char *path)
 	return (0);
 }
 
-int		ft_abspath(char *root, char *path, char *buff)
+int		ft_servtoreal(char *root, char *path, char *buff)
 {
 	char	**split;
 	int		i;
@@ -77,15 +77,13 @@ int		is_pathvalid(char *root, char *path)
 	return (0);
 }
 
-void	get_rootpath(char *root, char *path, char *buff)
+void	ft_realtoserv(char *root, char *path, char *buff)
 {
-	char	tmp[PATH_MAX];
 	size_t	len;
 
 	len = ft_strlen(root);
-	ft_abspath(root, path, (char*)(&tmp));
-	if (ft_strncmp(root, tmp, len) == 0 && len < ft_strlen(tmp))
-		ft_strcpy(buff, ((char*)(&tmp) + len));
+	if (ft_strncmp(root, path, len) == 0 && len < ft_strlen(path))
+		ft_strcpy(buff, (path + len));
 	else
 		ft_strcpy(buff, "/");
 }

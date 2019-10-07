@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/06 17:51:02 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/06 22:59:37 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/07 22:20:04 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,19 @@ void			init_ccmd_hash(t_hash_list *hash)
 {
 	int				i;
 	const t_key_val k_val[] = {
-						{"LS", NULL},
-						{"PWD", NULL}, 
-						{"CD", NULL},
-						{"MKDIR", NULL},
-						{"RMDIR", NULL},
+						{"LS", cls},
+						{"PWD", cpwd}, 
+						{"CD", ccd},
+						{"MKDIR", cmkdir},
+						{"RMDIR", crmdir},
 						{"USER", cuser},
 						{"QUIT", cquit},
 						{"PUT", NULL},
 						{"GET", NULL},
-						{"LLS", NULL},
-						{"LCD", NULL},
-						{"LPWD", NULL}
+						{"RM", NULL},
+						{"LLS", clls},
+						{"LCD", clcd},
+						{"LPWD", clpwd}
 	};
 
 	i = -1;
@@ -52,11 +53,12 @@ int				process_ccmds(t_cenv *cenv, char *input_cmd)
 {
 	char	**split;
 
+	(void)cenv;
 	if (!(split = ft_split(input_cmd, " \t\r\n")))
 		return (err_msg(-1, "split failed"));
 	ft_strtoupper(split[0]);
 	if (run_func(cenv, split[0], split[1]) == -1)
-		return (err_msg(-1, "run_func failed"));
+		return (-1);
 	free_split(split);
 	return (0);
 }
@@ -69,5 +71,7 @@ int		receive_reply(t_cenv *cenv)
 		return (err_msg(-1, "recv failed"));
 	cenv->reply[r] = '\0';
 	ft_printf("%s", cenv->reply);
+	if (cenv->reply[0] == '4' || cenv->reply[0] == '5')
+		return (-1);
 	return (0);
 }

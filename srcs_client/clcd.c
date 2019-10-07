@@ -1,32 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   clcd.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/06 15:39:09 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/07 22:09:11 by fbabin           ###   ########.fr       */
+/*   Created: 2019/10/07 18:50:26 by fbabin            #+#    #+#             */
+/*   Updated: 2019/10/07 19:12:17 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_p.h"
 
-int		main(int argc, char **argv)
+int		clcd(t_cenv *cenv, char *param)
 {
-	t_cenv	cenv;
-	int		port;
+	char	path[PATH_MAX];
 
-	if (argc != 3)
-		server_usage(argv[0]);
-	if ((port = check_port_range(argv[2])) == -1)
-		return (-1);
-	if ((cenv.csock = create_client(argv[1], argv[2])) == -1)
-		return (-1);
-	init_ccmd_hash((t_hash_list*)&(cenv.cmd_hash));
-	ft_strcpy(cenv.data_ip, argv[1]);
-	ft_strcpy(cenv.data_port, argv[2]);
-	client_handler(&cenv);
-	close(cenv.csock);
+	(void)param;
+	(void)cenv;
+	if (chdir(param) < 0)
+		return (err_msg(-1, "lcd failed"));
+	ft_printf("succesfully changed local directory to \"%s\"\n", getcwd(path, PATH_MAX));
 	return (0);
 }

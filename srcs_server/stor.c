@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 14:15:21 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/05 17:45:20 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/07 18:03:36 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ int			get_filename(char *root, char *buff, char *path)
 	begin = ft_strrchr(path, '/');
 	if (!begin)
 	{
-		if (ft_abspath(root, path, buff) == -1)
+		if (ft_servtoreal(root, path, buff) == -1)
 			return (-1);
 	}
 	else
 	{
-		if (ft_abspath(root, begin + 1, buff) == -1)
+		if (ft_servtoreal(root, begin + 1, buff) == -1)
 			return (-1);
 	}
 	if (!is_pathvalid(root, buff))

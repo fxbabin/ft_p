@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 13:56:45 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/05 17:34:44 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/07 16:02:00 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ static int		run_func(t_env *env, char *cmd, char *param)
 {
 	int		(*func)(t_env*, char*);
 
-	if (env->is_logged == 0 && ft_strcmp(cmd, "USER") != 0)
+	if (env->is_logged == 0 && ((ft_strcmp(cmd, "USER") != 0)
+		&& (ft_strcmp(cmd, "QUIT") != 0)))
 		return (err_answer(-1, env->answer, FTP_NOT_LOGGED));
 	if (!(func = hash_get_val((t_hash_list*)&(env->hash), cmd, hash_strcmp)))
 		return (err_answer(-1, env->answer, FTP_SYNT_ERR_UNK_CMD));

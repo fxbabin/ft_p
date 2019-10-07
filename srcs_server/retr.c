@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/03 16:38:56 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/05 17:47:17 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/07 18:04:08 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int		retr(t_env *env, char *param)
 	char	abspath[PATH_MAX + 1];
 	int		pid;
 
-	if (!param || ft_abspath(env->user_path, param, (char*)&abspath) == -1)
+	if (!param || ft_servtoreal(env->user_path, param, (char*)&abspath) == -1)
 		return (err_answer(-1, env->answer, FTP_FILE_NOT_PERM));
 	if (!(is_pathvalid(env->user_path, (char*)&abspath))
 		|| is_file((char*)&abspath) <= 0)

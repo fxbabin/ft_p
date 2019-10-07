@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/03 18:29:33 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/03 19:40:52 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/07 18:02:07 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int				dele(t_env *env, char *param)
 
 	if (!param)
 		return (err_answer(-1, env->answer, FTP_SYNT_BAD_SEQ));
-	if (ft_abspath(env->user_path, param, (char*)(&abspath)) == -1)
+	if (ft_servtoreal(env->user_path, param, (char*)(&abspath)) == -1)
 		return (err_answer(-1, env->answer, FTP_SYNT_BAD_SEQ));
 	if (!is_pathvalid(env->user_path, (char*)(&abspath)))
 		return (err_answer(-1, env->answer, FTP_FILE_NOT_AVAIL));
