@@ -1,40 +1,52 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   dataserver.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/11 22:00:18 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/08 17:30:17 by fbabin           ###   ########.fr       */
+/*   Created: 2019/10/08 18:33:08 by fbabin            #+#    #+#             */
+/*   Updated: 2019/10/08 23:04:26 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_p.h"
 
-int		get_clientsock(struct addrinfo *res_init)
+static int		sock_opt(t_cenv *cenv, int sock, struct addrinfo *res, char c)
+{
+	struct sockaddr_in *addr;
+
+	if (setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &(int){1}, sizeof(int)) < 0)
+		return (-1);
+	cenv->data_ipv[0] = c;
+	cenv->data_ipv[1] = '\0';
+	addr = (struct sockaddr_in *)res->ai_addr;
+	//ft_strcpy(cenv->data_ip, inet_ntoa((struct in_addr)addr->sin_addr));
+	return (0);
+}
+
+static int		get_datasock(t_cenv *cenv, struct addrinfo *res_init)
 {
 	struct addrinfo		*res;
 	int					sock;
+	char				c;
 
 	res = res_init;
+	c = '2';
 	while (res)
 	{
-		sock = socket(res->ai_family, res->ai_socktype, res->ai_protocol);
-		if (sock < 0)
-		{
-			ft_printf("dd\n");
-			res = res->ai_next;
-			continue;
-		}
-		//if (setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &(int){1}, sizeof(int)) < 0)
-		//	return (-1);
-		//ft_printf("'%s'\n", inet_ntoa(res->ai_addr));
-		if (connect(sock, res->ai_addr, res->ai_addrlen) < 0)
+		if ((sock = socket(res->ai_family, res->ai_socktype,
+						res->ai_protocol)) < 0 && --c)
 		{
 			res = res->ai_next;
 			continue;
 		}
+		if (sock_opt(cenv, sock, res, c) == -1)
+			return (-1);
+		if (bind(sock, res->ai_addr, res->ai_addrlen) < 0
+				&& (res = res->ai_next))
+			continue;
+		listen(sock, 42);
 		freeaddrinfo(res_init);
 		return (sock);
 	}
@@ -42,7 +54,7 @@ int		get_clientsock(struct addrinfo *res_init)
 	return (-1);
 }
 
-int		create_client(char *addr, char *port)
+int				create_dataserver(t_cenv *cenv, char *ip, char *port)
 {
 	struct addrinfo		hints;
 	struct addrinfo		*res_init;
@@ -53,10 +65,11 @@ int		create_client(char *addr, char *port)
 	hints.ai_family = PF_UNSPEC;
 	hints.ai_protocol = IPPROTO_TCP;
 	hints.ai_socktype = SOCK_STREAM;
-	if ((ret = getaddrinfo(addr, port, &hints, &res_init)) != 0)
+	hints.ai_flags = AI_PASSIVE;
+	ft_strcpy(cenv->tmp_port, port);
+	if ((ret = getaddrinfo(ip, port, &hints, &res_init)) != 0)
 		return (err_msg(-1, "getaddrinfo failed"));
-	if ((sock = get_clientsock(res_init)) == -1)
+	if ((sock = get_datasock(cenv, res_init)) == -1)
 		return (err_msg(-1, "get_sock failed"));
-	ft_printf("Connected to %s.\n", addr);
 	return (sock);
 }

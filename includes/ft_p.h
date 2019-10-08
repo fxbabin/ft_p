@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/11 22:02:19 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/07 23:46:01 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/08 22:58:45 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,6 +190,9 @@ int							receive_reply(t_cenv *cenv);
 void						init_ccmd_hash(t_hash_list *hash);
 int							process_ccmds(t_cenv *cenv, char *input_cmd);
 void						bufferize_cmd(char *buff, char *cmd, char *param);
+void						get_ipport(t_cenv *cenv, char *buff);
+int							create_dataserver(t_cenv *cenv,
+								char *ip, char *port);
 
 int							cquit(t_cenv *cenv, char *param);
 int							cuser(t_cenv *cenv, char *param);
