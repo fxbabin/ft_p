@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 15:16:04 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/05 17:44:33 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/11 17:15:28 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ const char *const g_ftp_reply_msg[] = {
 	[FTP_NEED_PASS] = "331 User name okay, need password.\n",
 	[FTP_SERV_NOT_AVAIL] = "421 Service not available, closing control "
 	"connection.\n",
+	[FTP_DATA_CON_KO] = "425 Can't open data connection.\n",
 	[FTP_SYNT_ERR] = "500 Syntax error, command unrecognized.\n",
 	[FTP_SYNT_ERR_PAR] = "501 Syntax error in parameters "
 	"or arguments.\n",

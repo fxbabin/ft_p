@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 14:16:27 by fbabin            #+#    #+#             */
-/*   Updated: 2019/09/16 14:28:38 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/11 17:58:47 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef struct			s_hash_list
 
 int						hash_strcmp(void *s1, void *s2);
 void					hash_add_key_val(t_hash_list *hash_table, void *key,
-										void *val, int (cmp)(void*, void*));
+										void *val, int size);
 void					*hash_get_val(t_hash_list *hash_table, void *key,
 										int (cmp)(void*, void*));
 

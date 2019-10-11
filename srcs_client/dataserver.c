@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/08 18:33:08 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/08 23:04:26 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/11 22:10:50 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int		sock_opt(t_cenv *cenv, int sock, struct addrinfo *res, char c)
 {
 	struct sockaddr_in *addr;
 
-	if (setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &(int){1}, sizeof(int)) < 0)
+	if (setsockopt(sock, SOL_SOCKET, SO_REUSEPORT, &(int){1}, sizeof(int)) < 0)
 		return (-1);
 	cenv->data_ipv[0] = c;
 	cenv->data_ipv[1] = '\0';
@@ -42,7 +42,10 @@ static int		get_datasock(t_cenv *cenv, struct addrinfo *res_init)
 			continue;
 		}
 		if (sock_opt(cenv, sock, res, c) == -1)
-			return (-1);
+		{
+			res = res->ai_next;
+			continue ;
+		}
 		if (bind(sock, res->ai_addr, res->ai_addrlen) < 0
 				&& (res = res->ai_next))
 			continue;
@@ -62,12 +65,12 @@ int				create_dataserver(t_cenv *cenv, char *ip, char *port)
 	int					ret;
 
 	ft_memset(&hints, 0, sizeof(hints));
-	hints.ai_family = PF_UNSPEC;
-	hints.ai_protocol = IPPROTO_TCP;
+	hints.ai_family = AF_UNSPEC;
 	hints.ai_socktype = SOCK_STREAM;
 	hints.ai_flags = AI_PASSIVE;
 	ft_strcpy(cenv->tmp_port, port);
-	if ((ret = getaddrinfo(ip, port, &hints, &res_init)) != 0)
+	(void)ip;
+	if ((ret = getaddrinfo(NULL, port, &hints, &res_init)) != 0)
 		return (err_msg(-1, "getaddrinfo failed"));
 	if ((sock = get_datasock(cenv, res_init)) == -1)
 		return (err_msg(-1, "get_sock failed"));

@@ -6,7 +6,7 @@
 #    By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/17 21:49:09 by fbabin            #+#    #+#              #
-#    Updated: 2019/10/08 23:01:14 by fbabin           ###   ########.fr        #
+#    Updated: 2019/10/11 14:54:21 by fbabin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME			=	server
 NAME2			=	client
 
 CC				=	gcc
-CFLAGS			=	-Wall -Werror -Wextra
+CFLAGS			=	-Wall -Werror -Wextra #-fsanitize=address
 
 _SRV			=	main.c server.c client_handler.c reply_handler.c \
 					cmds_handler.c utils.c path.c user.c quit.c mkd.c \

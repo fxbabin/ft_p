@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/06 17:51:02 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/07 22:20:04 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/11 18:21:03 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,35 @@ void			init_ccmd_hash(t_hash_list *hash)
 	i = -1;
 	ft_bzero(hash, (CMD_HASH_SIZE) * sizeof(t_hash_list));
 	while (++i < (int)(sizeof(k_val) / sizeof(*k_val)))
-		hash_add_key_val(hash, k_val[i].key, k_val[i].val, hash_strcmp);
+		hash_add_key_val(hash, k_val[i].key, k_val[i].val, CMD_HASH_SIZE);
+}
+
+static int		hash_func(char *str, int hash_tsize)
+{
+	int		hash;
+	int		i;
+
+	i = -1;
+	hash = 5381;
+	if (!str)
+		return (-1);
+	while (str[++i])
+		hash = (((hash << 5) + hash) + str[i]) % hash_tsize;
+	return (hash % hash_tsize);
+}
+
+static void		*ff(t_hash_list* hash, char *cmd)
+{
+	int				hash_idx;
+	t_hash_list		*tmp;
+
+	hash_idx = hash_func((char*)cmd, CMD_HASH_SIZE);
+	if (hash_idx == -1)
+		return (NULL);
+	tmp = hash;
+	if (&tmp[hash_idx] == NULL || tmp[hash_idx].key == NULL)
+		return (NULL);
+	return (tmp[hash_idx].value);
 }
 
 static int		run_func(t_cenv *cenv, char *cmd, char *param)
@@ -42,7 +70,7 @@ static int		run_func(t_cenv *cenv, char *cmd, char *param)
 	int		(*func)(t_cenv*, char*);
 	int		ret;
 
-	if (!(func = hash_get_val((t_hash_list*)&(cenv->cmd_hash), cmd, hash_strcmp)))
+	if (!(func = ff((t_hash_list*)&(cenv->cmd_hash), cmd)))
 		return (err_msg(-1, "can't find function associated with command"));
 	if ((ret = func(cenv, param)) == -1)
 		return (-1);

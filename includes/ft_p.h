@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/11 22:02:19 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/08 22:58:45 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/11 18:32:59 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 # define USER_NAME_LEN		6
 # define PASS_SALT			"xF"
 # define IPV6_LEN			46
-# define CMD_HASH_SIZE		142
+# define CMD_HASH_SIZE		41
 /*
 ** -------------------------------- STRUCTURES ---------------------------------
 */
@@ -96,6 +96,7 @@ enum	e_ftp_reply_code
 	FTP_LOGGED_IN,
 	FTP_REQ_ACT_OK,
 	FTP_NEED_PASS,
+	FTP_DATA_CON_KO,
 	FTP_SERV_NOT_AVAIL,
 	FTP_CON_CLOSE,
 	FTP_SYNT_ERR,

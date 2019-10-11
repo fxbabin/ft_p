@@ -6,11 +6,12 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/15 17:12:46 by fbabin            #+#    #+#             */
-/*   Updated: 2019/09/16 15:09:39 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/11 17:58:24 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hash_table.h"
+#include <stdio.h>
 
 static int		hash_func(char *str, int hash_tsize)
 {
@@ -42,22 +43,22 @@ int				hash_strcmp(void *s1, void *s2)
 }
 
 void			hash_add_key_val(t_hash_list *hash_table, void *key, void *val,
-									int (cmp)(void*, void*))
+									int size)
 {
 	int				hash_idx;
 	t_hash_list		*tmp;
 
-	hash_idx = hash_func((char*)key, HASH_TSIZE);
+	hash_idx = hash_func((char*)key, size);
 	tmp = hash_table;
 	if (hash_table[hash_idx].key != NULL)
 	{
 		while (tmp->next)
 		{
-			if (cmp(tmp[hash_idx].key, key) == 0)
+			if (hash_strcmp(tmp[hash_idx].key, key) == 0)
 				break ;
 			tmp = tmp->next;
 		}
-		if (cmp(tmp[hash_idx].key, key) != 0)
+		if (hash_strcmp(tmp[hash_idx].key, key) != 0)
 		{
 			if (!(tmp->next = (t_hash_list*)malloc(sizeof(t_hash_list))))
 				return ;
@@ -83,6 +84,7 @@ void			*hash_get_val(t_hash_list *hash_table, void *key,
 			return (NULL);
 		if (cmp(tmp[hash_idx].key, key) == 0)
 			return (tmp[hash_idx].value);
+		//printf("%p\n", tmp);
 		tmp = tmp->next;
 	}
 	return (NULL);

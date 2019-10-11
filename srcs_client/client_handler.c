@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/06 15:46:22 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/07 11:56:36 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/11 21:18:24 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int		client_handler(t_cenv *cenv)
 		else
 			process_ccmds(cenv, (char*)&buff);
 		ft_putstr("ftp> ");
-		buff[0] = '\0';
+		ft_bzero(buff, 128);
 	}
 	return (0);
 }

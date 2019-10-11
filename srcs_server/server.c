@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:10:08 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/04 23:02:20 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/11 22:49:49 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@ int		get_sock(struct addrinfo *res_init)
 			res = res->ai_next;
 			continue;
 		}
+		/*if (setsockopt(sock, SOL_SOCKET, SO_REUSEPORT, &(int){1}, sizeof(int)) < 0)
+		{
+			res = res->ai_next;
+			continue;
+		}*/
 		if (bind(sock, res->ai_addr, res->ai_addrlen) < 0)
 		{
 			res = res->ai_next;
@@ -55,6 +60,11 @@ int		create_server(char *port)
 		return (err_msg(-1, "getaddrinfo failed"));
 	if ((sock = get_sock(res_init)) == -1)
 		return (err_msg(-1, "get_sock failed"));
+	struct sockaddr_in sin;
+	socklen_t len = sizeof(sin);
+	if (getsockname(sock, (struct sockaddr *)&sin, &len) == -1)
+		ft_printf("getsockname\n");
+	ft_printf("port number %d\n", ntohs(sin.sin_port));
 	return (sock);
 }
 
