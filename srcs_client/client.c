@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/11 22:00:18 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/08 17:30:17 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/12 16:24:46 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,13 @@ int		create_client(char *addr, char *port)
 		return (err_msg(-1, "getaddrinfo failed"));
 	if ((sock = get_clientsock(res_init)) == -1)
 		return (err_msg(-1, "get_sock failed"));
-	ft_printf("Connected to %s.\n", addr);
+	struct sockaddr_in sin;
+	char	myIP[16];
+	socklen_t len = sizeof(sin);
+	if (getsockname(sock, (struct sockaddr *)&sin, &len) == -1)
+		ft_printf("getsockname\n");
+	inet_ntop(AF_INET, &sin.sin_addr, myIP, sizeof(myIP));
+	ft_printf("Connected to '%s' with port %d.\n", myIP, ntohs(sin.sin_port));
+	//ft_printf("Connected to %s.\n", addr);
 	return (sock);
 }

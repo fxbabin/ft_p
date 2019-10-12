@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/08 18:33:08 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/11 22:10:50 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/12 20:00:37 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int		sock_opt(t_cenv *cenv, int sock, struct addrinfo *res, char c)
 {
 	struct sockaddr_in *addr;
 
-	if (setsockopt(sock, SOL_SOCKET, SO_REUSEPORT, &(int){1}, sizeof(int)) < 0)
+	if (setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &(int){1}, sizeof(int)) < 0)
 		return (-1);
 	cenv->data_ipv[0] = c;
 	cenv->data_ipv[1] = '\0';
@@ -68,11 +68,22 @@ int				create_dataserver(t_cenv *cenv, char *ip, char *port)
 	hints.ai_family = AF_UNSPEC;
 	hints.ai_socktype = SOCK_STREAM;
 	hints.ai_flags = AI_PASSIVE;
-	ft_strcpy(cenv->tmp_port, port);
 	(void)ip;
 	if ((ret = getaddrinfo(NULL, port, &hints, &res_init)) != 0)
 		return (err_msg(-1, "getaddrinfo failed"));
 	if ((sock = get_datasock(cenv, res_init)) == -1)
 		return (err_msg(-1, "get_sock failed"));
+	struct sockaddr_in sin;
+	char	myIP[16];
+	socklen_t len = sizeof(sin);
+	if (getsockname(sock, (struct sockaddr *)&sin, &len) == -1)
+		ft_printf("getsockname\n");
+	inet_ntop(AF_INET, &sin.sin_addr, myIP, sizeof(myIP));
+	char *t;
+
+	t = ft_itoa(ntohs(sin.sin_port));
+	ft_strcpy(cenv->data_port, t);
+	ft_strcpy(cenv->data_ip, myIP);
+	free(t);
 	return (sock);
 }

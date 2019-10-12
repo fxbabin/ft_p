@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 14:15:21 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/07 18:03:36 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/12 20:01:53 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void		child_stor(t_env *env, char *abspath)
 int			stor(t_env *env, char *param)
 {
 	char	abspath[PATH_MAX + 1];
-	pid_t	pid;
+	//pid_t	pid;
 
 	if (!param)
 		return (-1);
@@ -69,17 +69,16 @@ int			stor(t_env *env, char *param)
 	ft_strcpy(env->answer, g_ftp_reply_msg[FTP_FILE_STAT_OK]);
 	log_print_user_msg(env->user_name, env->user_id, env->answer);
 	send(env->server_sock, env->answer, ft_strlen(env->answer), 0);
-	if (!(env->data_sock = create_data_con("127.0.0.1", env->data_port)))
+	ft_printf("'%s'\n", env->data_port);
+	if (!(env->data_sock = create_data_con("0.0.0.0", env->data_port)))
 		return (err_msg(-1, "could not create data sock"));
-	if ((pid = fork()) < 0)
+	/*if ((pid = fork()) < 0)
 		return (err_msg(-1, "fork failed"));
 	else if (pid == 0)
 		child_stor(env, (char*)&abspath);
 	else
-	{
-		close(env->data_sock);
-		wait(NULL);
-	}
+		wait(NULL);*/
+	close(env->data_sock);
 	ft_strcpy(env->answer, g_ftp_reply_msg[FTP_DATA_CON_CLOSE]);
 	return (0);
 }

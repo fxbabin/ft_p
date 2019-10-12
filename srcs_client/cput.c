@@ -1,39 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cls.c                                              :+:      :+:    :+:   */
+/*   cput.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/06 22:14:42 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/12 19:13:47 by fbabin           ###   ########.fr       */
+/*   Created: 2019/10/12 19:15:13 by fbabin            #+#    #+#             */
+/*   Updated: 2019/10/12 19:40:02 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_p.h"
 
-int		cls_receive_data(int datasock)
+int		cput_send_file(int datasock, char *filename)
 {
-	unsigned int			cslen;
-	struct sockaddr_in		csin;
-	char					buff[128];
-	int						cs;
-	int						r;
+	char	buff[2048];
+	int		fd;
+	int		r;
 
-	if ((cs = accept(datasock, (struct sockaddr*)&csin, &cslen)) < 0)
-		exit (-1);
-	ft_bzero(buff, 128);
-	while ((r = recv(cs, buff, 64, 0)) > 0)
+	if ((fd = open(filename, O_RDONLY)) == -1)
+		exit(err_msg(-1, "open failed"));
+	while ((r = read(fd, buff, 2048)) > 0)
 	{
 		buff[r] = '\0';
-		ft_putstr(buff);
+		send(datasock, (char*)&buff, r, 0);
 	}
-	if (close(cs) == -1)
-		exit (-1);
-	exit (0);
+	if (close(fd) == -1)
+		exit(err_msg(-1, "close failed"));
+	exit(0);
 }
 
-int		cls_fork(int datasock)
+int		cput_fork(int datasock, char *param)
 {
 	int		pid;
 
@@ -41,7 +38,7 @@ int		cls_fork(int datasock)
 		return (-1);
 	else if (pid == 0)
 	{
-		if (cls_receive_data(datasock) == -1)
+		if (cput_send_file(datasock, param) == -1)
 			return (-1);
 	}
 	else
@@ -49,7 +46,7 @@ int		cls_fork(int datasock)
 	return (0);
 }
 
-int			cls_process(t_cenv *cenv, char *param, int datasock)
+int			cput_process(t_cenv *cenv, char *param, int datasock)
 {
 	char	buff[128];
 	int		ret;
@@ -60,26 +57,28 @@ int			cls_process(t_cenv *cenv, char *param, int datasock)
 		return (err_msg(-1, "can't send port command"));
 	if (receive_reply(cenv) == -1)
 		return (err_msg(-1, "can't receive port reply"));
-	bufferize_cmd((char*)&buff, "LIST ", param);
+	bufferize_cmd((char*)&buff, "STOR ", param);
 	if ((ret = send(cenv->csock, buff, ft_strlen(buff), 0)) == -1)
-		return (err_msg(-1, "can't send list command"));
+		return (err_msg(-1, "can't send stor command"));
 	ft_bzero(buff, 128);
 	if (receive_reply(cenv) == -1)
-		return (err_msg(-1, "can't receive list reply"));
-	if (cls_fork(datasock) == -1)
+		return (err_msg(-1, "can't receive stor reply"));
+	if (cput_fork(datasock, param) == -1)
 		return (err_msg(-1, "can't receive data"));
 	if (receive_reply(cenv) == -1)
-		return (err_msg(-1, "can't receive end "));
+		return (err_msg(-1, "can't receive stor end"));
 	return (0);
 }
 
-int		cls(t_cenv *cenv, char *param)
+int		cput(t_cenv *cenv, char *param)
 {
 	int		datasock;
 
+	if (!param)
+		return (err_msg(-1, "no file given !"));
 	if ((datasock = create_dataserver(cenv, cenv->data_ip, "0")) < 0)
 		return (err_msg(-1, "can't create datasock"));
-	if (cls_process(cenv, param, datasock) == -1)
+	if (cput_process(cenv, param, datasock) == -1)
 	{
 		close(datasock);
 		return (-1);

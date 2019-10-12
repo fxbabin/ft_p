@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/08 22:21:54 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/08 22:29:33 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/12 16:52:19 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		get_port(t_cenv *cenv, char *buff)
 	ft_strcat(buff, tmp);
 	ft_strcat(buff, ",");
 	free(tmp);
-	if (!(tmp = ft_itoa(ft_atoi(cenv->tmp_port) / 256)))
+	if (!(tmp = ft_itoa(ft_atoi(cenv->data_port) / 256)))
 		return (-1);
 	ft_strcat(buff, tmp);
 	ft_strcat(buff, ",");
@@ -44,7 +44,7 @@ void	get_eprt(t_cenv *cenv, char *buff)
 	ft_strcat(buff, "|");
 	ft_strcat(buff, cenv->data_ip);
 	ft_strcat(buff, "|");
-	ft_strcat(buff, cenv->tmp_port);
+	ft_strcat(buff, cenv->data_port);
 	ft_strcat(buff, "|\n");
 }
 

@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/06 17:51:02 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/11 18:21:03 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/12 19:37:59 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void			init_ccmd_hash(t_hash_list *hash)
 						{"RMDIR", crmdir},
 						{"USER", cuser},
 						{"QUIT", cquit},
-						{"PUT", NULL},
+						{"PUT", cput},
 						{"GET", NULL},
 						{"RM", NULL},
 						{"LLS", clls},

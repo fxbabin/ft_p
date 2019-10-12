@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/11 22:02:19 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/11 18:32:59 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/12 19:38:45 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,5 +206,6 @@ int							cmkdir(t_cenv *cenv, char *param);
 int							crmdir(t_cenv *cenv, char *param);
 int							crm(t_cenv *cenv, char *param);
 int							cls(t_cenv *cenv, char *param);
+int							cput(t_cenv *cenv, char *param);
 
 #endif
