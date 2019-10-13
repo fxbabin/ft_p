@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/13 17:47:36 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/13 18:49:28 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/13 22:31:11 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		cget_file(int datasock, char *filename, int r)
 
 	if ((cs = accept(datasock, (struct sockaddr*)&csin, &cslen)) < 0)
 		exit(err_msg(-1, "accept failed"));
-	if ((fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644)) == -1)
+	if ((fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0755)) == -1)
 		exit(err_msg(-1, "open failed"));
 	while ((r = recv(cs, buff, 2000, 0)) > 0)
 	{
