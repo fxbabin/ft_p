@@ -6,22 +6,32 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/08 18:33:08 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/13 22:09:40 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/13 22:16:02 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_p.h"
 
-static int		treat_sock(t_cenv *cenv, int sock, struct addrinfo *res, int *c)
+static int		treat_sock(t_cenv *cenv, int sock, struct addrinfo *res,
+							char *c)
 {
 	if (sock < 0)
+	{
+		*c -= 1;
 		return (-1);
+	}
 	if (setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &(int){1}, sizeof(int)) < 0)
+	{
+		*c -= 1;
 		return (-1);
-	cenv->data_ipv[0] = c;
+	}
+	cenv->data_ipv[0] = *c;
 	cenv->data_ipv[1] = '\0';
 	if (bind(sock, res->ai_addr, res->ai_addrlen) < 0)
+	{
+		*c -= 1;
 		return (-1);
+	}
 	return (0);
 }
 
