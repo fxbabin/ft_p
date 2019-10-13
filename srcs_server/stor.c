@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 14:15:21 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/13 14:37:35 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/13 23:12:46 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void		child_stor(t_env *env, char *abspath)
 	int		r;
 	char	server_reply[2000];
 
-	if ((fd = open(abspath, O_WRONLY | O_CREAT | O_TRUNC, 0644)) == -1)
+	if ((fd = open(abspath, O_WRONLY | O_CREAT | O_TRUNC, 0755)) == -1)
 	{
 		close(env->data_sock);
 		exit(-1);
