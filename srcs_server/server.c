@@ -6,13 +6,13 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:10:08 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/13 16:58:03 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/13 21:09:37 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_p.h"
 
-int		treat_sock(int sock, struct addrinfo *res)
+static int	treat_sock(int sock, struct addrinfo *res)
 {
 	if (sock < 0)
 		return (-1);
@@ -23,7 +23,7 @@ int		treat_sock(int sock, struct addrinfo *res)
 	return (0);
 }
 
-int		get_sock(struct addrinfo *res_init)
+int			get_sock(struct addrinfo *res_init)
 {
 	struct addrinfo		*res;
 	int					sock;
@@ -45,7 +45,7 @@ int		get_sock(struct addrinfo *res_init)
 	return (-1);
 }
 
-void	print_ip_port(int sock)
+void		print_ip_port(int sock)
 {
 	struct sockaddr_in	sin;
 	char				my_ip[16];
@@ -60,7 +60,7 @@ void	print_ip_port(int sock)
 	ntohs(sin.sin_port));
 }
 
-int		create_server(char *port)
+int			create_server(char *port)
 {
 	struct addrinfo		hints;
 	struct addrinfo		*res_init;
@@ -80,7 +80,7 @@ int		create_server(char *port)
 	return (sock);
 }
 
-int		init_server_file_system(t_env *env)
+int			init_server_file_system(t_env *env)
 {
 	DIR		*dir;
 	char	path[PATH_MAX];

@@ -1,35 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clpwd.c                                            :+:      :+:    :+:   */
+/*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/07 18:46:13 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/13 18:38:34 by fbabin           ###   ########.fr       */
+/*   Created: 2019/10/13 18:47:27 by fbabin            #+#    #+#             */
+/*   Updated: 2019/10/13 18:48:08 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_p.h"
 
-int		child_clpwd(void)
+void	bufferize_cmd(char *buff, char *cmd, char *param)
 {
-	if (execl("/bin/pwd", "/bin/pwd", (char *)0) < 0)
-		exit(-1);
-	exit(0);
-}
-
-int		clpwd(t_cenv *cenv, char *param)
-{
-	int		pid;
-
-	(void)param;
-	(void)cenv;
-	if ((pid = fork()) < 0)
-		return (-1);
-	else if (pid == 0)
-		child_clpwd();
-	else
-		wait(NULL);
-	return (0);
+	ft_bzero(buff, 128);
+	ft_strcpy(buff, cmd);
+	if (param)
+		ft_strncat(buff, param, 122);
+	ft_strcat(buff, "\n");
 }

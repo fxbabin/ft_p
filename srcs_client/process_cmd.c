@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/06 17:51:02 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/13 18:22:44 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/13 18:46:18 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void			init_ccmd_hash(t_hash_list *hash)
 	int				i;
 	const t_key_val k_val[] = {
 						{"LS", cls},
-						{"PWD", cpwd}, 
+						{"PWD", cpwd},
 						{"CD", ccd},
 						{"MKDIR", cmkdir},
 						{"RMDIR", crmdir},
@@ -37,7 +37,7 @@ void			init_ccmd_hash(t_hash_list *hash)
 		hash_add_key_val(hash, k_val[i].key, k_val[i].val, CMD_HASH_SIZE);
 }
 
-static void		*ff(t_hash_list* hash, char *cmd)
+static void		*get_hash_val(t_hash_list *hash, char *cmd)
 {
 	int				hash_idx;
 	t_hash_list		*tmp;
@@ -56,7 +56,7 @@ static int		run_func(t_cenv *cenv, char *cmd, char *param)
 	int		(*func)(t_cenv*, char*);
 	int		ret;
 
-	if (!(func = ff((t_hash_list*)&(cenv->cmd_hash), cmd)))
+	if (!(func = get_hash_val((t_hash_list*)&(cenv->cmd_hash), cmd)))
 		return (err_msg(-1, "can't find function associated with command"));
 	if ((ret = func(cenv, param)) == -1)
 		return (-1);
@@ -77,7 +77,7 @@ int				process_ccmds(t_cenv *cenv, char *input_cmd)
 	return (0);
 }
 
-int		receive_reply(t_cenv *cenv)
+int				receive_reply(t_cenv *cenv)
 {
 	int		r;
 

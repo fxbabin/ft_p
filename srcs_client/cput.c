@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 19:15:13 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/13 15:16:50 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/13 18:50:33 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		cput_send_file(int datasock, char *filename, int r)
 	int						cs;
 
 	if ((cs = accept(datasock, (struct sockaddr*)&csin, &cslen)) < 0)
-		exit (err_msg(-1, "accept failed"));
+		exit(err_msg(-1, "accept failed"));
 	if ((fd = open(filename, O_RDONLY)) == -1)
 		exit(err_msg(-1, "open failed"));
 	while ((r = read(fd, buff, 2048)) > 0)
@@ -32,7 +32,7 @@ int		cput_send_file(int datasock, char *filename, int r)
 	if (close(fd) == -1)
 		exit(err_msg(-1, "close failed"));
 	if (close(cs) == -1)
-		exit (-1);
+		exit(-1);
 	exit(0);
 }
 
@@ -51,7 +51,7 @@ int		cput_fork(int datasock, char *param)
 	return (0);
 }
 
-int			cput_process(t_cenv *cenv, char *param, int datasock)
+int		cput_process(t_cenv *cenv, char *param, int datasock)
 {
 	char	buff[128];
 	int		ret;

@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/06 22:12:41 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/07 17:00:12 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/13 18:44:45 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,6 @@ int				cquit(t_cenv *cenv, char *param)
 	if (receive_reply(cenv) == -1)
 		return (-1);
 	if (ft_strncmp(cenv->reply, "221", 3) == 0)
-		exit (0);
+		exit(0);
 	return (-1);
 }

@@ -6,13 +6,13 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 18:14:54 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/07 19:12:23 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/13 18:38:49 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_p.h"
 
-int		child_clls()
+int		child_clls(void)
 {
 	if (execl("/bin/ls", "/bin/ls", "-l", (char *)0) < 0)
 		exit(-1);

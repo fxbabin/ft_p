@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/11 22:02:19 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/13 18:22:08 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/13 18:37:09 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@
 # define PASS_SALT			"xF"
 # define IPV6_LEN			46
 # define CMD_HASH_SIZE		41
+
 /*
 ** -------------------------------- STRUCTURES ---------------------------------
 */
@@ -160,7 +161,7 @@ void						free_split(char **split);
 int							create_data_con(char *addr, char *port);
 
 /*
-** ---------------------------- SERVER COMMANDS ---------------------------------
+** ---------------------------- SERVER COMMANDS -------------------------------
 */
 
 int							user(t_env *env, char *param);

@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/06 22:14:42 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/13 17:37:06 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/13 18:50:25 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		cls_receive_data(int datasock)
 	int						r;
 
 	if ((cs = accept(datasock, (struct sockaddr*)&csin, &cslen)) < 0)
-		exit (-1);
+		exit(-1);
 	ft_bzero(buff, 128);
 	while ((r = recv(cs, buff, 64, 0)) > 0)
 	{
@@ -29,8 +29,8 @@ int		cls_receive_data(int datasock)
 		ft_putstr(buff);
 	}
 	if (close(cs) == -1)
-		exit (-1);
-	exit (0);
+		exit(-1);
+	exit(0);
 }
 
 int		cls_fork(int datasock)
@@ -46,7 +46,7 @@ int		cls_fork(int datasock)
 	return (0);
 }
 
-int			cls_process(t_cenv *cenv, char *param, int datasock)
+int		cls_process(t_cenv *cenv, char *param, int datasock)
 {
 	char	buff[128];
 	int		ret;

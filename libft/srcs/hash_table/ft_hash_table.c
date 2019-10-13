@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/15 17:12:46 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/13 15:48:10 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/13 22:10:30 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ void			*hash_get_val(t_hash_list *hash_table, void *key,
 			return (NULL);
 		if (cmp(tmp[hash_idx].key, key) == 0)
 			return (tmp[hash_idx].value);
-		//printf("%p\n", tmp);
 		tmp = tmp->next;
 	}
 	return (NULL);

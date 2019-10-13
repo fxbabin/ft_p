@@ -6,13 +6,13 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/11 22:13:52 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/07 15:59:34 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/13 18:48:27 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_p.h"
 
-void    server_usage(char *prog_name)
+void	server_usage(char *prog_name)
 {
 	ft_printf("Usage: %s <ip> <port [0-65535]>\n", prog_name);
 	exit(-1);
@@ -29,7 +29,7 @@ int		check_port_range(char *port_str)
 	int		port;
 
 	if (ft_strlen(port_str) > 5)
-		return(err_msg(-1, "invalid port range"));
+		return (err_msg(-1, "invalid port range"));
 	port = ft_atoi(port_str);
 	return (port);
 }
@@ -51,13 +51,4 @@ void	free_split(char **split)
 	while (split[++i])
 		ft_memdel((void**)&split[i]);
 	ft_memdel((void**)split);
-}
-
-void	bufferize_cmd(char *buff, char *cmd, char *param)
-{
-	ft_bzero(buff, 128);
-	ft_strcpy(buff, cmd);
-	if (param)
-		ft_strncat(buff, param, 122);
-	ft_strcat(buff, "\n");
 }
