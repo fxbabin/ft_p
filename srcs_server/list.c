@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 12:05:06 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/11 22:07:38 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/13 15:14:17 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,27 @@ int				child_list(t_env *env, char *param)
 	exit(0);
 }
 
+int				fork_list(t_env *env, char *param)
+{
+	int		pid;
+
+	pid = fork();
+	if (pid < 0)
+		return (err_msg(-1, "fork failed"));
+	else if (pid == 0)
+		child_list(env, param);
+	else
+	{
+		close(env->data_sock);
+		wait(NULL);
+	}
+	return (0);
+}
+
 int				list(t_env *env, char *param)
 {
 	char	abspath[PATH_MAX];
 	char	path[PATH_MAX];
-	pid_t	pid;
 
 	abspath[0] = 0;
 	if (!param)
@@ -45,16 +61,7 @@ int				list(t_env *env, char *param)
 	ft_strcpy(env->answer, g_ftp_reply_msg[FTP_FILE_STAT_OK]);
 	log_print_user_msg(env->user_name, env->user_id, env->answer);
 	send(env->server_sock, env->answer, ft_strlen(env->answer), 0);
-	pid = fork();
-	if (pid < 0)
-		return (err_msg(-1, "fork failed"));
-	else if (pid == 0)
-		child_list(env, param);
-	else
-	{
-		close(env->data_sock);
-		wait(NULL);
-	}
+	fork_list(env, param);
 	ft_strcpy(env->answer, g_ftp_reply_msg[FTP_DATA_CON_CLOSE]);
 	return (0);
 }

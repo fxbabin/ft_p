@@ -6,11 +6,22 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:10:08 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/12 16:16:38 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/13 16:58:03 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_p.h"
+
+int		treat_sock(int sock, struct addrinfo *res)
+{
+	if (sock < 0)
+		return (-1);
+	if (setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &(int){1}, sizeof(int)) < 0)
+		return (-1);
+	if (bind(sock, res->ai_addr, res->ai_addrlen) < 0)
+		return (-1);
+	return (0);
+}
 
 int		get_sock(struct addrinfo *res_init)
 {
@@ -21,20 +32,10 @@ int		get_sock(struct addrinfo *res_init)
 	while (res)
 	{
 		sock = socket(res->ai_family, res->ai_socktype, res->ai_protocol);
-		if (sock < 0)
+		if (treat_sock(sock, res) == -1)
 		{
 			res = res->ai_next;
-			continue;
-		}
-		if (setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &(int){1}, sizeof(int)) < 0)
-		{
-			res = res->ai_next;
-			continue;
-		}
-		if (bind(sock, res->ai_addr, res->ai_addrlen) < 0)
-		{
-			res = res->ai_next;
-			continue;
+			continue ;
 		}
 		listen(sock, 42);
 		freeaddrinfo(res_init);
@@ -42,6 +43,21 @@ int		get_sock(struct addrinfo *res_init)
 	}
 	freeaddrinfo(res_init);
 	return (-1);
+}
+
+void	print_ip_port(int sock)
+{
+	struct sockaddr_in	sin;
+	char				my_ip[16];
+	socklen_t			len;
+
+	len = sizeof(sin);
+	if (getsockname(sock, (struct sockaddr *)&sin, &len) == -1)
+		return ;
+	inet_ntop(AF_INET, &sin.sin_addr, my_ip, sizeof(my_ip));
+	log_print();
+	ft_printf("INFO : socket created on ip : %s and port %d ...\n", my_ip,
+	ntohs(sin.sin_port));
 }
 
 int		create_server(char *port)
@@ -60,14 +76,7 @@ int		create_server(char *port)
 		return (err_msg(-1, "getaddrinfo failed"));
 	if ((sock = get_sock(res_init)) == -1)
 		return (err_msg(-1, "get_sock failed"));
-	struct sockaddr_in sin;
-	char	myIP[16];
-	socklen_t len = sizeof(sin);
-	if (getsockname(sock, (struct sockaddr *)&sin, &len) == -1)
-		ft_printf("getsockname\n");
-	inet_ntop(AF_INET, &sin.sin_addr, myIP, sizeof(myIP));
-	log_print();
-	ft_printf("INFO : socket created on ip : %s and port %d ...\n", myIP, ntohs(sin.sin_port));
+	print_ip_port(sock);
 	return (sock);
 }
 

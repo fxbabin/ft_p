@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/05 15:43:26 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/11 17:19:04 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/13 14:41:29 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int		eprt(t_env *env, char *param)
 	i = -1;
 	if (!(split = ft_strsplit(param, '|')))
 		return (err_answer(-1, env->answer, FTP_SERV_NOT_AVAIL));
-		//return (err_msg(-1, "strsplit failed"));
 	while (split[++i])
 		;
 	if (i != 3)

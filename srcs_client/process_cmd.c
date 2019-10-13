@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/06 17:51:02 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/12 19:37:59 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/13 15:48:54 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void			init_ccmd_hash(t_hash_list *hash)
 						{"QUIT", cquit},
 						{"PUT", cput},
 						{"GET", NULL},
-						{"RM", NULL},
+						{"RM", crm},
 						{"LLS", clls},
 						{"LCD", clcd},
 						{"LPWD", clpwd}
@@ -35,20 +35,6 @@ void			init_ccmd_hash(t_hash_list *hash)
 	ft_bzero(hash, (CMD_HASH_SIZE) * sizeof(t_hash_list));
 	while (++i < (int)(sizeof(k_val) / sizeof(*k_val)))
 		hash_add_key_val(hash, k_val[i].key, k_val[i].val, CMD_HASH_SIZE);
-}
-
-static int		hash_func(char *str, int hash_tsize)
-{
-	int		hash;
-	int		i;
-
-	i = -1;
-	hash = 5381;
-	if (!str)
-		return (-1);
-	while (str[++i])
-		hash = (((hash << 5) + hash) + str[i]) % hash_tsize;
-	return (hash % hash_tsize);
 }
 
 static void		*ff(t_hash_list* hash, char *cmd)

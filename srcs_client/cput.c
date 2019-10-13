@@ -6,41 +6,46 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 19:15:13 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/12 19:40:02 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/13 15:16:50 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_p.h"
 
-int		cput_send_file(int datasock, char *filename)
+int		cput_send_file(int datasock, char *filename, int r)
 {
-	char	buff[2048];
-	int		fd;
-	int		r;
+	char					buff[2048];
+	int						fd;
+	unsigned int			cslen;
+	struct sockaddr_in		csin;
+	int						cs;
 
+	if ((cs = accept(datasock, (struct sockaddr*)&csin, &cslen)) < 0)
+		exit (err_msg(-1, "accept failed"));
 	if ((fd = open(filename, O_RDONLY)) == -1)
 		exit(err_msg(-1, "open failed"));
 	while ((r = read(fd, buff, 2048)) > 0)
 	{
 		buff[r] = '\0';
-		send(datasock, (char*)&buff, r, 0);
+		send(cs, (char*)&buff, r, 0);
 	}
 	if (close(fd) == -1)
 		exit(err_msg(-1, "close failed"));
+	if (close(cs) == -1)
+		exit (-1);
 	exit(0);
 }
 
 int		cput_fork(int datasock, char *param)
 {
 	int		pid;
+	int		r;
 
+	r = 0;
 	if ((pid = fork()) < 0)
 		return (-1);
 	else if (pid == 0)
-	{
-		if (cput_send_file(datasock, param) == -1)
-			return (-1);
-	}
+		cput_send_file(datasock, param, r);
 	else
 		wait(NULL);
 	return (0);

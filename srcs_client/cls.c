@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/06 22:14:42 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/12 19:13:47 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/13 14:45:44 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,7 @@ int		cls_fork(int datasock)
 	if ((pid = fork()) < 0)
 		return (-1);
 	else if (pid == 0)
-	{
-		if (cls_receive_data(datasock) == -1)
-			return (-1);
-	}
+		cls_receive_data(datasock);
 	else
 		wait(NULL);
 	return (0);

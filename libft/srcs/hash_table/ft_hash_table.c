@@ -6,14 +6,14 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/15 17:12:46 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/11 17:58:24 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/13 15:48:10 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hash_table.h"
 #include <stdio.h>
 
-static int		hash_func(char *str, int hash_tsize)
+int				hash_func(char *str, int hash_tsize)
 {
 	int		hash;
 	int		i;
