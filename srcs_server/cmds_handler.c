@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 13:56:45 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/13 15:52:04 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/13 17:39:04 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static int		run_func(t_env *env, char *cmd, char *param)
 	if (!(func = get_hash_elem((t_hash_list*)&(env->hash), cmd)))
 		return (err_answer(-1, env->answer, FTP_SYNT_ERR_UNK_CMD));
 	if (func(env, param) == -1)
-		return (err_answer(-1, env->answer, FTP_SYNT_ERR_UNK_CMD));
+		return (-1);
 	return (0);
 }
 

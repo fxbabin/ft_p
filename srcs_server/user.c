@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 15:50:25 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/04 18:48:19 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/13 17:06:21 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int			user(t_env *env, char *param)
 	char	path[PATH_MAX];
 	DIR		*dir;
 
+	env->is_logged = 0;
 	if (!param)
 		return (err_answer(-1, env->answer, FTP_SYNT_BAD_SEQ));
 	if (!is_stralpha(param))

@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/04 12:44:13 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/05 17:51:37 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/13 17:33:00 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,12 @@ int		pass(t_env *env, char *param)
 		close(ret);
 	}
 	if ((ret = check_password(env, param)) == -1)
+	{
+		env->is_logged = 0;
 		return (err_answer(-1, env->answer, FTP_NOT_LOGGED));
-	if (ret == 0)
-		add_password(env, param);
+	}
+	if (ret == 0 && add_password(env, param) == -1)
+		return (err_answer(-1, env->answer, FTP_NOT_LOGGED));
 	ft_strcpy(env->answer, g_ftp_reply_msg[FTP_LOGGED_IN]);
 	return (0);
 }
