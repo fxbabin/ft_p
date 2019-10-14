@@ -27,8 +27,9 @@ void	free_split(char **split)
 
 	i = -1;
 	while (split[++i])
-		ft_memdel((void**)&split[i]);
-	ft_memdel((void**)split);
+		free(split[i]);
+	free(split[i]);
+	free(split);
 }
 
 int		is_dir(char *path)

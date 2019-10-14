@@ -20,8 +20,7 @@ int		pwd(t_env *env, char *param)
 	(void)param;
 	if (getcwd(path, PATH_MAX) == NULL)
 		return (err_answer(-1, env->answer, FTP_FILE_NOT_AVAIL));
-	if (ft_realtoserv(env->user_path, path, (char*)&serv_path) == -1)
-		return (err_answer(-1, env->answer, FTP_FILE_NOT_AVAIL));
+	ft_realtoserv(env->user_path, path, (char*)&serv_path);
 	ft_strcpy(env->answer, "257 \"");
 	ft_strcat(env->answer, serv_path);
 	ft_strcat(env->answer, "\" is current directory.\n");
