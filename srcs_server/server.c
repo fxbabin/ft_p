@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:10:08 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/13 21:09:37 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/14 23:20:48 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,8 @@ int			init_server_file_system(t_env *env)
 	}
 	else if (errno == ENOENT)
 	{
-		mkdir(ROOT_DIR, 0755);
+		if (mkdir(ROOT_DIR, 0755) == -1)
+			return (err_msg(-1, "could not create ROOT_DIR"));
 		ft_printf("INFO : \"%s\" directory created.\n", ROOT_DIR);
 	}
 	if (chdir(ROOT_DIR) == -1)

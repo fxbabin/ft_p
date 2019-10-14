@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/11 22:13:52 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/01 17:27:33 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/14 22:55:02 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,17 @@ void	free_split(char **split)
 	while (split[++i])
 		ft_memdel((void**)&split[i]);
 	ft_memdel((void**)split);
+}
+
+int		is_dir(char *path)
+{
+	struct stat		buf;
+	int				fd;
+
+	fd = open(path, O_RDONLY);
+	if (fstat(fd, &buf) == -1)
+		return (-1);
+	if (S_ISDIR(buf.st_mode))
+		return (1);
+	return (0);
 }

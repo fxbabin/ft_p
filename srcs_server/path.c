@@ -6,24 +6,11 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 18:14:12 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/14 12:47:31 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/14 22:55:35 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_p.h"
-
-int		is_dir(char *path)
-{
-	struct stat		buf;
-	int				fd;
-
-	fd = open(path, O_RDONLY);
-	if (fstat(fd, &buf) == -1)
-		return (-1);
-	if (S_ISDIR(buf.st_mode))
-		return (1);
-	return (0);
-}
 
 int		is_file(char *path)
 {
@@ -38,11 +25,31 @@ int		is_file(char *path)
 	return (0);
 }
 
+int		servtoreal_aux(char *param, char *path, char *buff)
+{
+	char	*ptr;
+
+	if ((ptr = ft_strrchr(buff, '/')) == path)
+		return (-1);
+	if (ft_strcmp(param, "..") == 0)
+		ptr[(ptr != buff) ? 0 : 1] = '\0';
+	else if (ft_strcmp(param, ".") != 0)
+	{
+		if ((ft_strlen(buff) + 1) >= (PATH_MAX - 1))
+			return (-1);
+		if ((ft_strlen(buff) + ft_strlen(param)) >= (PATH_MAX - 1))
+			return (-1);
+		if (buff[1])
+			ft_strcat(buff, "/");
+		ft_strcat(buff, param);
+	}
+	return (0);
+}
+
 int		ft_servtoreal(char *root, char *path, char *buff)
 {
 	char	**split;
 	int		i;
-	char	*t;
 
 	i = -1;
 	(path[0] == '/')
@@ -50,20 +57,12 @@ int		ft_servtoreal(char *root, char *path, char *buff)
 		: getcwd(buff, PATH_MAX);
 	if (!(split = ft_strsplit(path, '/')))
 		return (-1);
-	while (split[++i] && (t = ft_strrchr(buff, '/')) != path)
+	while (split[++i])
 	{
-		if (ft_strcmp(split[i], "..") == 0)
-			t[(t != buff) ? 0 : 1] = '\0';
-		else if (ft_strcmp(split[i], ".") != 0)
+		if (servtoreal_aux(split[i], path, buff) == -1)
 		{
-			if (((ft_strlen(buff) + 1) >= (PATH_MAX - 1)) || ((ft_strlen(buff)
-				+ ft_strlen(split[i])) >= (PATH_MAX - 1)))
-			{
-				free_split(split);
-				return (-1);
-			}
-			(buff[1]) ? ft_strcat(buff, "/") : NULL;
-			ft_strcat(buff, split[i]);
+			free_split(split);
+			return (-1);
 		}
 	}
 	free_split(split);

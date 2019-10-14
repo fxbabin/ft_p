@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/08 18:33:08 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/14 19:14:01 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/14 23:33:29 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,12 @@ static int		get_datasock(t_cenv *cenv, struct addrinfo *res_init)
 	c = '2';
 	while (res)
 	{
-		sock = socket(res->ai_family, res->ai_socktype, res->ai_protocol);
+		if ((sock = socket(res->ai_family,
+			res->ai_socktype, res->ai_protocol)) == -1)
+		{
+			res = res->ai_next;
+			continue;
+		}
 		if (treat_sock(cenv, sock, res, &c) == -1)
 		{
 			res = res->ai_next;

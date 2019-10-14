@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 17:17:39 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/07 18:06:19 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/14 23:04:10 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int		pwd(t_env *env, char *param)
 	(void)param;
 	if (getcwd(path, PATH_MAX) == NULL)
 		return (err_answer(-1, env->answer, FTP_FILE_NOT_AVAIL));
-	ft_realtoserv(env->user_path, path, (char*)&serv_path);
+	if (ft_realtoserv(env->user_path, path, (char*)&serv_path) == -1)
+		return (err_answer(-1, env->answer, FTP_FILE_NOT_AVAIL));
 	ft_strcpy(env->answer, "257 \"");
 	ft_strcat(env->answer, serv_path);
 	ft_strcat(env->answer, "\" is current directory.\n");

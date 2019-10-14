@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 12:05:06 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/14 14:28:36 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/14 22:29:04 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int				list(t_env *env, char *param)
 	else
 		ft_servtoreal(env->user_path, param, (char*)&abspath);
 	if (!is_pathvalid(env->user_path, (char*)(&abspath)))
-		ft_strcpy((char*)&abspath, env->user_path); 
+		ft_strcpy((char*)&abspath, env->user_path);
 	param = (char*)&abspath;
 	if ((env->data_sock = create_data_con(env->data_ip, env->data_port)) == -1)
 		return (err_answer(-1, env->answer, FTP_DATA_CON_KO));
