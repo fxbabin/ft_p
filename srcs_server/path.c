@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 18:14:12 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/07 18:06:14 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/14 12:47:31 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,10 @@ int		ft_servtoreal(char *root, char *path, char *buff)
 		{
 			if (((ft_strlen(buff) + 1) >= (PATH_MAX - 1)) || ((ft_strlen(buff)
 				+ ft_strlen(split[i])) >= (PATH_MAX - 1)))
+			{
+				free_split(split);
 				return (-1);
+			}
 			(buff[1]) ? ft_strcat(buff, "/") : NULL;
 			ft_strcat(buff, split[i]);
 		}

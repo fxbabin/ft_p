@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/08 18:33:08 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/13 22:16:02 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/14 19:14:01 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ int				get_port_ip(t_cenv *cenv, int sock)
 	if (getsockname(sock, (struct sockaddr *)&sin, &len) == -1)
 		return (-1);
 	inet_ntop(AF_INET, &sin.sin_addr, myip, sizeof(myip));
-	t = ft_itoa(ntohs(sin.sin_port));
+	if (!(t = ft_itoa(ntohs(sin.sin_port))))
+		return (-1);
 	ft_strcpy(cenv->data_port, t);
 	ft_strcpy(cenv->data_ip, myip);
 	free(t);

@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 13:56:45 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/13 17:39:04 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/14 12:21:05 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,10 @@ int				process_cmds(t_env *env, char *input_cmd)
 		return (err_answer(-1, env->answer, FTP_SYNT_BAD_SEQ));
 	}
 	if ((check_cmds(env, split[0], split[1])) == -1)
+	{
+		free_split(split);
 		return (err_answer(-1, env->answer, FTP_SYNT_ERR_PAR));
+	}
 	ft_strtoupper(split[0]);
 	run_func(env, split[0], split[1]);
 	free_split(split);
