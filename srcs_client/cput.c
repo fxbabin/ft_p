@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 19:15:13 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/13 18:50:33 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/15 16:03:34 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,27 @@ int		cput_process(t_cenv *cenv, char *param, int datasock)
 	return (0);
 }
 
+int		is_file(char *path)
+{
+	struct stat		buf;
+	int				fd;
+
+	fd = open(path, O_RDONLY);
+	if (fstat(fd, &buf) == -1)
+		return (-1);
+	if (S_ISREG(buf.st_mode))
+		return (1);
+	return (0);
+}
+
 int		cput(t_cenv *cenv, char *param)
 {
 	int		datasock;
 
 	if (!param)
 		return (err_msg(-1, "no file given !"));
+	if (is_file(param) <= 0)
+		return (err_msg(-1, "not a file !"));
 	if ((datasock = create_dataserver(cenv, cenv->data_ip, "0")) < 0)
 		return (err_msg(-1, "can't create datasock"));
 	if (cput_process(cenv, param, datasock) == -1)

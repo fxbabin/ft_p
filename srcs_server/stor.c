@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 14:15:21 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/14 14:30:56 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/15 15:54:46 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,6 @@ int			stor(t_env *env, char *param)
 	if (!param)
 		return (-1);
 	if (get_filename(env->user_path, (char*)&abspath, param) == -1)
-		return (err_answer(-1, env->answer, FTP_FILE_NOT_PERM));
-	if (is_file((char*)&abspath) <= 0)
 		return (err_answer(-1, env->answer, FTP_FILE_NOT_PERM));
 	ft_strcpy(env->answer, g_ftp_reply_msg[FTP_FILE_STAT_OK]);
 	log_print_user_msg(env->user_name, env->user_id, env->answer);
