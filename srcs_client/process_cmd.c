@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/06 17:51:02 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/14 19:11:33 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/15 14:14:59 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int				process_ccmds(t_cenv *cenv, char *input_cmd)
 	char	**split;
 
 	(void)cenv;
+	split = NULL;
 	if (!(split = ft_split(input_cmd, " \t\r\n")))
 		return (err_msg(-1, "split failed"));
 	ft_strtoupper(split[0]);

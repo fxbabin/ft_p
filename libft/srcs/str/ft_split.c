@@ -6,7 +6,7 @@
 /*   By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 22:14:33 by fbabin            #+#    #+#             */
-/*   Updated: 2018/04/16 00:41:10 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/15 14:13:37 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ char			**ft_split(char *str, char *charset)
 	int		z;
 
 	z = 0;
+	tab = NULL;
 	if (!str || !charset)
 		return (NULL);
 	if ((tab = (char**)malloc((ft_wordnb(str, charset) + 1) * sizeof(char*)))
