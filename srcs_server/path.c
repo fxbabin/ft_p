@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 18:14:12 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/14 22:55:35 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/14 23:48:50 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ int		is_pathvalid(char *root, char *path)
 {
 	size_t		len;
 
+	if (!root || !path)
+		return (0);
 	len = ft_strlen(root);
 	if (ft_strncmp(root, path, len) == 0 && len < ft_strlen(path))
 		return (1);
