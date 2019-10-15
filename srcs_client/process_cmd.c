@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/06 17:51:02 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/15 14:14:59 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/15 18:42:51 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ static void		*get_hash_val(t_hash_list *hash, char *cmd)
 		return (NULL);
 	tmp = hash;
 	if (&tmp[hash_idx] == NULL || tmp[hash_idx].key == NULL)
+		return (NULL);
+	if (ft_strcmp(tmp[hash_idx].key, cmd) != 0)
 		return (NULL);
 	return (tmp[hash_idx].value);
 }
