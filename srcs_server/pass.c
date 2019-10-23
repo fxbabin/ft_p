@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/04 12:44:13 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/14 22:17:44 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/23 15:43:40 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,10 @@ int		check_password(t_env *env, char *param)
 		return (-1);
 	while ((ret = sget_next_line(fd, &line)) > 0)
 	{
-		if ((r = check_user_pass(env, param, line)) != 0)
+		if ((r = check_user_pass(env, param, line)) <= 0)
 			break ;
+		if (r)
+			return (1);
 		free(line);
 	}
 	free(line);
