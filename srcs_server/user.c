@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 15:50:25 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/14 23:19:13 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/23 15:41:44 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ int			user(t_env *env, char *param)
 		return (err_answer(-1, env->answer, FTP_FILE_NOT_AVAIL));
 	if ((dir = opendir(param)) && (closedir(dir)) == -1)
 		return (err_msg(-1, "could not close directory"));
-	else if (errno == ENOENT && (mkdir(param, 0755)) == -1)
-		return (err_answer(-1, env->answer, FTP_FILE_NOT_AVAIL));
+	else if (errno == ENOENT)
+		mkdir(param, 0755);
 	if (chdir(param) == -1)
 		return (err_answer(-1, env->answer, FTP_FILE_NOT_AVAIL));
 	path[0] = '\0';
