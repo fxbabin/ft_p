@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:10:08 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/14 23:20:48 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/23 15:01:26 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void		print_ip_port(int sock)
 		return ;
 	inet_ntop(AF_INET, &sin.sin_addr, my_ip, sizeof(my_ip));
 	log_print();
-	ft_printf("INFO : socket created on ip : %s and port %d ...\n", my_ip,
+	ft_printf("INFO : socket created on ip : '%s' and port '%d' ...\n", my_ip,
 	ntohs(sin.sin_port));
 }
 
@@ -68,7 +68,7 @@ int			create_server(char *port)
 	int					ret;
 
 	ft_memset(&hints, 0, sizeof(hints));
-	hints.ai_family = PF_UNSPEC;
+	hints.ai_family = AF_UNSPEC;
 	hints.ai_protocol = IPPROTO_TCP;
 	hints.ai_socktype = SOCK_STREAM;
 	hints.ai_flags = AI_PASSIVE;
