@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/11 22:00:18 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/04 22:45:16 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/23 15:44:36 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,16 @@ int		main(int argc, char **argv)
 	if ((sock = create_server(argv[1])) == -1)
 		return (-1);
 	if ((init_server_file_system(&env)) == -1)
+	{
+		close(sock);
 		return (-1);
+	}
 	init_cmd_hash((t_hash_list*)&(env.hash));
 	if ((multi_client_handler(&env, sock)) == -1)
+	{
+		close(sock);
 		return (err_msg(-1, "client handler failed"));
+	}
 	close(sock);
 	return (0);
 }
