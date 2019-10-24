@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/06 15:46:22 by fbabin            #+#    #+#             */
-/*   Updated: 2019/10/11 21:18:24 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/10/24 14:28:47 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		client_handler(t_cenv *cenv)
 		return (-1);
 	ft_putstr("ftp> ");
 	buff[0] = '\0';
-	while ((ret = read(0, buff, 128)) > 0)
+	while ((ret = read(0, buff, 127)) > 0)
 	{
 		if (ret == 1)
 			;
