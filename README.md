@@ -68,3 +68,5 @@ The following commands are available with the client :
 <p >
 <img src="imgs/client.png" width="900" />
 <p/>
+
+### Final mark (125/125)
